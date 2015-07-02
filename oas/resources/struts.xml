@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 配置一个测试的Action -->
+	<package name="base" extends="struts-default">
+		<!-- 配置BaseAction -->
+		<action name="base" class="com.pfkj.oas.action.BaseAction" method="test">
+			<result name="success">/testJsp.jsp</result>
+		</action>
+	</package>
+
+	<package name="index" extends="struts-default">
+		<action name="index" class="com.pfkj.oas.action.IndexAction" method="init">
+			<result name="success" type="redirect">main.jsp</result>
+			<result name="fail" >login.jsp</result>
+		</action>
+	</package>
+
+
+	
+	<package name="qx" extends="struts-default">
+		<action name="qx-*" class="qxAction" method="{1}">
+			<result name="success">/help.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+	</package>
+	<package name="jsdgl" extends="struts-default">
+		<action name="jsdgl-*" class="jsdglAction" method="{1}">
+			<result name="success">/help.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+	</package>
+	<package name="fkgl" extends="struts-default">
+		<action name="fkgl-*" class="fkglAction" method="{1}">
+			<result name="success">/help.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+	</package>
+	<package name="skgl" extends="struts-default">
+		<action name="skgl-*" class="skglAction" method="{1}">
+			<result name="success">/help.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+	</package>
+	<package name="css" extends="struts-default">
+		<action name="css" class="com.pfkj.oas.action.BaseAction" method="test">
+			<result name="success">/help.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+	</package>
+
+	<package name="page" extends="struts-default">
+		<action name="page-*" class="com.pfkj.oas.action.PageAction" method="{1}">
+		</action>
+	</package>
+	<package name="file" extends="struts-default">
+		<action name="file-*" class="fileAction" method="{1}">
+            <param name="savePath">/files</param>
+            <result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">DownloadFile</param>
+				<param name="contentDisposition">attachment;filename="${dwChineseFileName}"</param>
+				<param name="bufferSize">4096</param>
+		     </result>
+		</action>
+	</package>
+<!-- 
+	<package name="jsd" extends="struts-default">
+		<action name="jsd-*" class="com.pfkj.oas.action.JsdAction" method="{1}">
+			<result name="success">/help.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+	</package>
+	 -->
+
+</struts>

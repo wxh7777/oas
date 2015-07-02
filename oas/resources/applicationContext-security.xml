@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security   
+           http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+    <http auto-config="true"  lowercase-comparisons="false">
+        
+        <access-denied-handler ref="myAccessDeniedHandler"/>
+        
+        <!-- access-denied-page="/error.jsp" 不要过滤图片等静态资源  filters="none"--> 
+        <intercept-url pattern="/**/*.jpg" filters="none" />  
+        <intercept-url pattern="/**/*.png" filters="none" />  
+        <intercept-url pattern="/**/*.gif" filters="none" />  
+        <intercept-url pattern="/**/*.css" filters="none" />  
+      
+        <!-- 登陆页和忘记密码或注册等不需要过滤的页面 -->  
+        <intercept-url pattern="*/login.jsp" filters="none" />
+        
+        <form-login login-page="/login.jsp"    default-target-url="/main.jsp" authentication-failure-url="/login.jsp?error=true"  />
+        <logout logout-success-url="/login.jsp"   logout-url="/j_spring_security_logout"/>  
+        <!--  <session-management>  
+		    <concurrency-control error-if-maximum-exceeded="true"   max-sessions="1" expired-url="/login.jsp"/>  
+		</session-management>  -->
+        <custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+     </http> 
+    
+    <b:bean id="myFilter" class="com.pfkj.oas.security.MyFilterSecurityInterceptor" autowire="byType">  
+        <b:property name="authenticationManager" ref="authenticationManager" />  
+        <b:property name="accessDecisionManager" ref="myAccessDecisionManager" />  
+        <b:property name="securityMetadataSource" ref="mySecurityMetadataSource" /> 
+    </b:bean>  
+    
+    <authentication-manager alias="authenticationManager">  
+        <authentication-provider user-service-ref="myUserDetailService">
+             <password-encoder hash="md5" /> 
+        </authentication-provider>  
+    </authentication-manager>  
+    
+    <b:bean id="myUserDetailService" class="com.pfkj.oas.qx.impl.MyUserDetailsServiceImpl" >
+        <b:property name="userService" ref="userService"></b:property>
+    </b:bean> 
+    
+    <b:bean id="myAccessDecisionManager"   class="com.pfkj.oas.security.MyAccessDecisionManager">  
+    </b:bean>  
+  
+    <b:bean id="mySecurityMetadataSource" class="com.pfkj.oas.security.MyInvocationSecurityMetadataSource">
+     </b:bean> 
+    
+    <b:bean id="myAccessDeniedHandler" class="com.pfkj.oas.security.MyAccessDeniedExceptionHandler">
+        <b:property name="errorPage" value="/error.jsp"></b:property>
+    </b:bean>
+
+	<b:bean id="userService" class="com.pfkj.oas.qx.impl.UserServiceImpl" autowire="byName">
+		<b:property name="userDao" ref="userDao"></b:property>
+	</b:bean>
+	<b:bean id="userDao"  parent="baseDao" class="com.pfkj.oas.dao.UserDaoImpl" autowire="byName">	
+		<b:property name="sessionFactory" ref="sessionFactory"></b:property>
+	</b:bean>
+	<b:bean id="authorityService"  class="com.pfkj.oas.qx.impl.AuthorityServiceImpl" autowire="byName">	
+		<b:property name="authorityDao" ref="authorityDao"></b:property>
+	</b:bean>
+	<b:bean id="authorityDao"  parent="baseDao" class="com.pfkj.oas.dao.AuthorityDaoImpl" autowire="byName">	
+		<b:property name="sessionFactory" ref="sessionFactory"></b:property>
+	</b:bean>
+</b:beans>

@@ -1,0 +1,7 @@
+/applicationContext-hibernate.xml
+/applicationContext-security.xml
+/applicationContext.xml
+/bpmn
+/com
+/log4j.properties
+/struts.xml
