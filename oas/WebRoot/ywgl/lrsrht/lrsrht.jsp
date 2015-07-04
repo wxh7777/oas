@@ -14,33 +14,59 @@
 <div class="pd-20">
 	<div class="text-c">
 		<table class="table table-border table-bordered table-striped">
+			<colgroup>
+				<col width="10%">
+				<col width="40%">
+				<col width="10%">
+				<col width="40%">
+			</colgroup>
           <tbody>
             <tr>
-              <td><div class="text-r">合同类别</div></td>
-              <td>
-				<select class="select select-box" id="selSrhtlb" name="srht">
-					<option></option>
-				</select>
-			  </td>
-              <td><div class="text-r">合同编号</div></td>
-              <td><input type="text" class="input-text"  id="htbh" name="htbh" placeholder="合同编号"></td>
+              	<td><div class="text-r">合同编号</div></td>
+              	<td><input type="text" class="input-text"  id="htbh" name="htbh" placeholder="合同编号"></td>
+              	<td><div class="text-r">合同名称</div></td>
+              	<td><input type="text" class="input-text"  id="yzmc" name="yzmc" placeholder="合同名称"></td>
             </tr>
             <tr>
-				<td colspan="4">
-					 	<span>选择合同文件：</span>
+              <td><div class="text-r">业主单位名称</div></td>
+              <td><input type="text" class="input-text"  id="yzmc" name="yzmc" placeholder="业主单位名称"></td>
+              <td><div class="text-r">中标单位名称</div></td>
+              <td><input type="text" class="input-text"  id="yzmc" name="yzmc" placeholder="中标单位名称"></td>
+            </tr>
+            <tr>
+             	<td><div class="text-r">开工日期</div></td>
+              	<td><input type="text" class="input-text" onClick="WdatePicker()" readonly id="sj" name="sj"  placeholder="开工时间"></td>
+             	<td><div class="text-r">完工日期</div></td>
+              	<td><input type="text" class="input-text" onClick="WdatePicker()" readonly id="sj" name="sj"  placeholder="完工时间"></td>
+            </tr>
+            <tr>
+              	<td><div class="text-r">实际开工日期</div></td>
+              	<td><input type="text" class="input-text" onClick="WdatePicker()" readonly id="sj" name="sj"  placeholder="实际开工时间"></td>
+             	 <td><div class="text-r">竣工日期</div></td>
+              	<td><input type="text" class="input-text" onClick="WdatePicker()" readonly id="sj" name="sj"  placeholder="竣工时间"></td>
+            </tr>
+            <tr>
+            	<td><div class="text-r">合同金额</div></td>
+              	<td><input type="text" class="input-text"  id="yzmc" name="yzmc" placeholder="合同金额"></td>
+              	<td><div class="text-r">实际结算金额</div></td>
+              	<td><input type="text" class="input-text"  id="yzmc" name="yzmc" placeholder="实际结算金额"></td>              
+            </tr>
+            <tr>
+            	<td><div class="text-r">工程分类</div></td>
+              	<td><input type="text" class="input-text"  id="yzmc" name="yzmc" placeholder="工程分类"></td>
+				<td>
+					<div class="text-r">合同文件：</div>
+				</td>
+				<td>
+				 	<span class="btn-upload">
+					  <input class="input-text upload-url radius" type="text" name="uploadfile-1" id="uploadfile-1" readonly>
+					  <a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览</a>
+					  <input type="file" multiple id="myFile1" name="myFile" class="input-file">
+					</span>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4">
-				     	<span class="btn-upload">
-						  <input class="input-text upload-url radius" type="text" name="uploadfile-1" id="uploadfile-1" readonly>
-						  <a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览</a>
-						  <input type="file" multiple id="myFile1" name="myFile" class="input-file">
-						</span>
-				</td>
-			</tr>
-			<tr colspan="4" class="text-c">
-				<td>
+				<td colspan="4" class="text-c">
 					<a href="javascript:;" onclick="upload()" class="btn btn-success"><i class="icon-save"></i> 上传</a>
 				</td>
 			</tr>
