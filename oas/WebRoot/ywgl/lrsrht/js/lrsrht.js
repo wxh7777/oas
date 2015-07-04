@@ -2,18 +2,22 @@
 function init(){
     isLogin();
 }
-//保存按钮
-function upload(){
+//上传收入合同
+function uploadIncomeContract(){
 	var options = {  
-			 	type:'post',
-		        url:'file-uploadSrht.action',
-		        success: function(data){  
-		        	layer.msg("上传成功");
-		        	$( "#filesForm").resetForm();  
-                },  
-                error: function(XmlHttpRequest, textStatus, errorThrown){  
-                	layer.msg("上传失败，请重新上传");  
-                }
-		       };  
-	 $("#filesForm").ajaxSubmit(options); 
+			type:'post',
+		    url:'file-uploadIncomeContract.action',
+	        success: function(data){ 
+	        	if(data>0){
+	        		layer.msg("上传成功");
+		        	$( "#incomeContractForm").resetForm(); 
+	        	}else{
+	        		layer.msg("上传失败，请重新上传");
+	        	}
+            },  
+            error: function(XmlHttpRequest, textStatus, errorThrown){
+            	layer.msg("上传失败，请重新上传");  
+            }
+		};  
+	 $("#incomeContractForm").ajaxSubmit(options); 
 }

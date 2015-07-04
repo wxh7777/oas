@@ -12,38 +12,40 @@
 <body onLoad="init()"> 
 <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span> 录入收入合同 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav> 
 <div class="pd-20">
-	<div class="text-c">
-		<table class="table table-border table-bordered table-striped">
-          <tbody>
-            <tr>
-              <td><div class="text-r">合同类别</div></td>
-              <td>
-				<select class="select select-box" id="selSrhtlb" name="srht">
-					<option value="1">类别1</option>
-					<option value="2">类别2</option>
-				</select>
-			  </td>
-              <td><div class="text-r">合同编号</div></td>
-              <td><input type="text" class="input-text"  id="htbh" name="htbh" placeholder="合同编号"></td>
-            </tr>
-            <tr>
-				<td colspan="4">
-					 <span>选择合同文件：</span>
-					 <span class="btn-upload">
-						  <input class="input-text upload-url radius" type="text" name="uploadfile-1" id="uploadfile-1" readonly>
-						  <a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览</a>
-						  <input type="file" multiple id="myFile1" name="myFile" class="input-file">
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4" class="text-c">
-					<a href="javascript:;" onclick="upload()" class="btn btn-success"><i class="icon-save"></i> 上传</a>
-				</td>
-			</tr>
-          </tbody>
-        </table>
-	</div>
+	<form id="incomeContractForm" action=""  enctype="multipart/form-data" method="post" onsubmit="validate()">
+		<div class="text-c">
+			<table class="table table-border table-bordered table-striped">
+	          <tbody>
+	            <tr>
+	              <td><div class="text-r">合同类别</div></td>
+	              <td>
+					<select class="select select-box" id="selSrhtlb" name="type">
+						<option value="工程中标合同">工程中标合同</option>
+						<option value="其他合同">其他合同</option>
+					</select>
+				  </td>
+	              <td><div class="text-r">合同编号</div></td>
+	              <td><input type="text" class="input-text" required=true  oninvalid="this.setCustomValidity('用户名不能为空.');"  oninput="setCustomValidity('');" name="number" placeholder="合同编号"></td>
+	            </tr>
+	            <tr>
+					<td colspan="4">
+						 <span>选择合同文件：</span>
+						 <span class="btn-upload">
+							  <input class="input-text upload-url radius" type="text" name="uploadfile-1" id="uploadfile-1" readonly>
+							  <a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览</a>
+							  <input type="file" multiple id="myFile1" name="myFile" class="input-file">
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" class="text-c">
+						<a href="javascript:;" onclick="uploadIncomeContract()" class="btn btn-success"><i class="icon-save"></i> 上传</a>
+					</td>
+				</tr>
+	          </tbody>
+	        </table>
+		</div>
+	</form>
 </div>
 <jsp:include page="/footer.jsp" flush="true"></jsp:include>
 <script src="./js/lrsrht.js" type="text/javascript" charset="utf-8" ></script>
