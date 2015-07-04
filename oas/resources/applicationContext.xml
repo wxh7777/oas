@@ -122,7 +122,20 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
+	<!-- 收入合同管理 -->
+	<bean id="incomeContractAction" class="com.pfkj.oas.recover.action.IncomeContractAction" autowire="byName" scope="prototype">
+		<property name="incomeContractService" ref="incomeContractService"></property>
+	</bean>
+	<bean id="incomeContractService" class="com.pfkj.oas.recover.service.impl.IncomeContractServiceImpl" autowire="byName" scope="prototype">
+		<property name="dao" ref="incomeContractDao"></property>
+	</bean>
+	<bean id="incomeContractDao" parent="baseDao" class="com.pfkj.oas.recover.dao.impl.IncomeContractDaoImpl" autowire="byName" scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 文件管理 -->
 	<bean id="fileAction" class="com.pfkj.oas.action.FileAction" autowire="byName" scope="prototype">
 		<property name="service" ref="JsdService"></property>
+		<property name="incomeContractService" ref="incomeContractService"></property>
 	</bean>
 </beans>

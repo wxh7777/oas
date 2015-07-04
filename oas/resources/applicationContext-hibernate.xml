@@ -12,7 +12,7 @@
 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/oas" />
+		<property name="url" value="jdbc:mysql://localhost:3306/oas?useUnicode=true&amp;characterEncoding=UTF-8" />
 		<property name="username" value="oas" />
 		<property name="password" value="mysql" />
 		<property name="initialSize" value="1" />
@@ -31,6 +31,7 @@
 			<list>
 				<value>com.pfkj.oas.model</value>
 				<value>com.pfkj.oas.model.qx</value>
+				<value>com.pfkj.oas.recover.model</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
