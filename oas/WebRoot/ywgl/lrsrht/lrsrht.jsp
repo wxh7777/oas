@@ -17,19 +17,28 @@
 			<table class="table table-border table-bordered table-striped">
 	          <tbody>
 	            <tr>
-	              <td><div class="text-r">合同类别</div></td>
-	              <td>
-					<select class="select select-box" id="selSrhtlb" name="type">
-						<option value="工程中标合同">工程中标合同</option>
-						<option value="其他合同">其他合同</option>
-					</select>
-				  </td>
-	              <td><div class="text-r">合同编号</div></td>
-	              <td><input type="text" class="input-text" required=true  oninvalid="this.setCustomValidity('用户名不能为空.');"  oninput="setCustomValidity('');" name="number" placeholder="合同编号"></td>
-	            </tr>
+	            	<td><div class="text-r">项目名称</div></td>
+	            	<td>
+						<select class="select select-box" id="selSrhtlb" name="projectId">
+							<option value="11111139763039816337">项目一</option>
+							<option value="11111139763039816337">项目二</option>
+						</select>
+					 </td>
+		             <td><div class="text-r">合同类别</div></td>
+		             <td>
+						<select class="select select-box" id="selSrhtlb" name="type">
+							<option value="工程中标合同">工程中标合同</option>
+							<option value="其他合同">其他合同</option>
+						</select>
+					 </td>
+	              </tr>
 	            <tr>
-					<td colspan="4">
-						 <span>选择合同文件：</span>
+	            	<td><div class="text-r">合同编号</div></td>
+	              	<td>
+	              		<input type="text" class="input-text" required=true name="number" placeholder="合同编号">
+	              	</td>
+					<td><div class="text-r"> 选择合同文件：</div></td>
+					<td>
 						 <span class="btn-upload">
 							  <input class="input-text upload-url radius" type="text" name="uploadfile-1" id="uploadfile-1" readonly>
 							  <a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览</a>

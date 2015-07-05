@@ -27,6 +27,10 @@ public class IncomeContract {
 	@Id
 	@Column(name = "ID", unique = true, length=20, nullable=false)
 	private String id;
+	
+	//项目名称（ID）
+	@Column(name = "PROJECT_ID")
+	private String projectId;
 
 	//合同编号
 	@Column(name = "NUMBER", unique = true, nullable=false)
@@ -51,13 +55,21 @@ public class IncomeContract {
 	//上传时间
 	@Column(name = "UPLOAD_TIME")
 	private Date uploadTime;
-	
+
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 
 	public String getNumber() {
@@ -83,7 +95,7 @@ public class IncomeContract {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
+
 	public int getStatus() {
 		return status;
 	}
@@ -91,7 +103,7 @@ public class IncomeContract {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -99,20 +111,20 @@ public class IncomeContract {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
+
 	public Date getUploadTime() {
 		return uploadTime;
 	}
-	
+
 	public void setUploadTime(Date uploadTime) {
 		this.uploadTime = uploadTime;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "IncomeContract [id=" + id + ", number=" + number + ", type="
-				+ type + ", path=" + path + ", status=" + status + ", userId="
-				+ userId + ", uploadTime=" + uploadTime + "]";
+		return "IncomeContract [id=" + id + ", projectId=" + projectId
+				+ ", number=" + number + ", type=" + type + ", path=" + path
+				+ ", status=" + status + ", userId=" + userId + ", uploadTime="
+				+ uploadTime + "]";
 	}
-
 }
