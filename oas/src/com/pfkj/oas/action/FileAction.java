@@ -408,13 +408,13 @@ public class FileAction extends BaseAction {
 	        	IncomeContract incomeContract = new IncomeContract();
 	        	String type = request.getParameter("type");
 	    		String number = request.getParameter("number");
-	    		String projectId = request.getParameter("projectId");
+	    		String xiangmuId = request.getParameter("xiangmuId");
 	    		//获取用户名
 	    		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	    		String userId = userDetails.getUsername();
 	        	incomeContract.setType(type);
 	        	incomeContract.setNumber(number);
-	        	incomeContract.setProjectId(projectId);
+	        	incomeContract.setXiangmuId(xiangmuId);
 	        	incomeContract.setUserId(userId);
 	        	incomeContract.setStatus(1);
 				

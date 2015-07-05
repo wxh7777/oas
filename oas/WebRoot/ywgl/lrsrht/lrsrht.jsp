@@ -19,7 +19,7 @@
 	            <tr>
 	            	<td><div class="text-r">项目名称</div></td>
 	            	<td>
-						<select class="select select-box" id="selSrhtlb" name="projectId">
+						<select class="select select-box" id="selSrhtlb" name="xiangmuId">
 							<option value="11111139763039816337">项目一</option>
 							<option value="11111139763039816337">项目二</option>
 						</select>
