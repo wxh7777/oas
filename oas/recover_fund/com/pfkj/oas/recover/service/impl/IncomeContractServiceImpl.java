@@ -9,44 +9,44 @@ import com.pfkj.oas.recover.service.IncomeContractService;
 
 public class IncomeContractServiceImpl implements IncomeContractService {
 	
-	public IncomeContractDao dao;
-	
-	public IncomeContractDao getDao() {
-		return dao;
+	public IncomeContractDao incomeContractDao;
+
+	public IncomeContractDao getIncomeContractDao() {
+		return incomeContractDao;
 	}
 
-	public void setDao(IncomeContractDao dao) {
-		this.dao = dao;
+	public void setIncomeContractDao(IncomeContractDao incomeContractDao) {
+		this.incomeContractDao = incomeContractDao;
 	}
 
 	@Override
 	public boolean insert(IncomeContract incomeContract) {
-		return dao.insert(incomeContract);
+		return incomeContractDao.insert(incomeContract);
 	}
 
 	@Override
 	public boolean delete(String id) {
-		return dao.delete(id);
+		return incomeContractDao.delete(id);
 	}
 
 	@Override
 	public boolean update(IncomeContract incomeContract) {
-		return dao.update(incomeContract);
+		return incomeContractDao.update(incomeContract);
 	}
 
 	@Override
 	public IncomeContract searchByID(String id) {
-		return dao.searchByID(id);
+		return incomeContractDao.searchByID(id);
 	}
 
 	@Override
 	public IncomeContract searchOne(Map queryMap) {
-		return dao.searchOne(queryMap);
+		return incomeContractDao.searchOne(queryMap);
 	}
 
 	@Override
 	public List<IncomeContract> searchList(Map queryMap) {
-		return dao.searchList(queryMap);
+		return incomeContractDao.searchList(queryMap);
 	}
 
 }
