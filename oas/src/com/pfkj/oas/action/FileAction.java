@@ -23,6 +23,7 @@ import com.pfkj.oas.model.HthbDo;
 import com.pfkj.oas.recover.model.IncomeContract;
 import com.pfkj.oas.recover.service.IncomeContractService;
 import com.pfkj.oas.service.JsdService;
+import com.pfkj.oas.util.JsonUtil;
 import com.pfkj.oas.util.StringUtil;
 
 public class FileAction extends BaseAction {
@@ -394,12 +395,7 @@ public class FileAction extends BaseAction {
     	int ret = -1;
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		
-		response.reset();
-		response.setContentType("text/html;charset=utf-8");
 		try {
-			PrintWriter pw = response.getWriter();
-			request.setCharacterEncoding("UTF-8");
 			//取得需要上传的文件数组
 	        File[] files = getMyFile();
 	        String hbbh = StringUtil.getNanoStrByLength(20);
@@ -445,9 +441,7 @@ public class FileAction extends BaseAction {
 		        if(res){
 		        	ret = 1;
 		        }
-		        pw.print(ret);
-				pw.flush();
-				pw.close();
+		        JsonUtil.output(response, ""+ret);
 	        }
 		}  catch (Exception e) {
 			e.printStackTrace();

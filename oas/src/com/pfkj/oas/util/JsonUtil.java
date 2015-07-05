@@ -1,14 +1,18 @@
 package com.pfkj.oas.util;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -124,5 +128,28 @@ public class JsonUtil {
             e.printStackTrace();  
         }  
         return null;  
-    }  
+    } 
+    
+    /**
+	 * 输出到浏览器
+	 * @param message
+	 * @param response
+	 */
+	public static void output(HttpServletResponse response, String message){
+		try {
+			response.setContentType("text/json;charset=UTF-8");
+			//*不缓存
+			response.setHeader("Pragma","No-Cache");
+			response.setHeader("Cache-Control","No-Cache");
+			response.setDateHeader("Expires", 0);
+			response.setCharacterEncoding("utf-8");
+
+			PrintWriter pw=response.getWriter();
+			pw.print(message);
+			pw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+    
 }
