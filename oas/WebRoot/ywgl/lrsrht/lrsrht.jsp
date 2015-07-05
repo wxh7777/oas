@@ -6,55 +6,37 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
-	<title>录入收入合同</title>
+	<title>收入合同</title>
 	<jsp:include page="/head.jsp" flush="true"></jsp:include>
 </head>
-<body onLoad="init()"> 
-<nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span> 录入收入合同 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav> 
-<div class="pd-20">
-	<form id="incomeContractForm" action=""  enctype="multipart/form-data" method="post" onsubmit="validate()">
-		<div class="text-c">
-			<table class="table table-border table-bordered table-striped">
-	          <tbody>
-	            <tr>
-	            	<td><div class="text-r">项目名称</div></td>
-	            	<td>
-						<select class="select select-box" id="selSrhtlb" name="xiangmuId">
-							<option value="11111139763039816337">项目一</option>
-							<option value="11111139763039816337">项目二</option>
-						</select>
-					 </td>
-		             <td><div class="text-r">合同类别</div></td>
-		             <td>
-						<select class="select select-box" id="selSrhtlb" name="type">
-							<option value="工程中标合同">工程中标合同</option>
-							<option value="其他合同">其他合同</option>
-						</select>
-					 </td>
-	              </tr>
-	            <tr>
-	            	<td><div class="text-r">合同编号</div></td>
-	              	<td>
-	              		<input type="text" class="input-text" required=true name="number" placeholder="合同编号">
-	              	</td>
-					<td><div class="text-r"> 选择合同文件：</div></td>
-					<td>
-						 <span class="btn-upload">
-							  <input class="input-text upload-url radius" type="text" name="uploadfile-1" id="uploadfile-1" readonly>
-							  <a href="javascript:void();" class="btn btn-primary radius"><i class="iconfont">&#xf0020;</i> 浏览</a>
-							  <input type="file" multiple id="myFile1" name="myFile" class="input-file">
-						</span>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4" class="text-c">
-						<a href="javascript:;" onclick="uploadIncomeContract()" class="btn btn-success"><i class="icon-save"></i> 上传</a>
-					</td>
-				</tr>
-	          </tbody>
-	        </table>
-		</div>
-	</form>
+<body onLoad="initIncomeContractList()"> 
+<nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span> 收入合同 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav> 
+<div class="pd-20  pb-100">
+	<%
+		//判断什么role才有添加的权限
+	%>
+ 	<div class="cl pd-5 bg-1 bk-gray">
+   	<span class="l">
+     		<a class="btn btn-primary radius" href="javascript:;" onclick="addIncomeContract()"><i class="icon-plus"></i> 添加收入合同</a>
+   	</span>
+ 	</div>
+ 	<%
+ 	%>
+  	<div  class="container">
+  	<table id="incomeContractListTable" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+		<thead class="text-c">
+			<tr>
+		        <th width="100">ID</th>
+		        <th width="100">项目名称</th>
+		        <th width="100">合同类别</th>
+		        <th width="100">合同编号</th>
+		        <th width="100">下载链接</th>
+			</tr>
+		</thead>
+    	<tbody class="text-c">
+    	</tbody>
+  	</table>
+  </div>
 </div>
 <jsp:include page="/footer.jsp" flush="true"></jsp:include>
 <script src="./js/lrsrht.js" type="text/javascript" charset="utf-8" ></script>
