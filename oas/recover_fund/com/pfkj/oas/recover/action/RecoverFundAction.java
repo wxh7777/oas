@@ -1,16 +1,24 @@
 package com.pfkj.oas.recover.action;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+
 import org.apache.struts2.ServletActionContext;
+import org.directwebremoting.json.JsonObject;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.pfkj.oas.action.BaseAction;
+import com.pfkj.oas.recover.model.IncomeContract;
 import com.pfkj.oas.recover.model.ReceivableNoticeCard;
 import com.pfkj.oas.recover.service.IncomeContractService;
 import com.pfkj.oas.recover.service.ReceivableNoticeCardService;
@@ -119,5 +127,17 @@ public class RecoverFundAction extends BaseAction {
 		JsonUtil.output(response, ""+ret);
 		
 		return null;
+	}
+	
+	/**
+	 * 获取当前用户权限的项目所对应的集合
+	 * @return
+	 */
+	public void getIncomeContractList(){
+		List<IncomeContract> incomeContractList = new ArrayList<IncomeContract>();
+		Map queryMap = new HashMap();
+		queryMap.put("XIANGMU_ID","11111139763039816337");
+		incomeContractList = incomeContractService.searchList(queryMap);
+		JsonUtil.output(response, JSONArray.fromObject(incomeContractList).toString());
 	}
 }

@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pfkj.oas.model.qx.QxResource;
 import com.pfkj.oas.recover.dao.IncomeContractDao;
 import com.pfkj.oas.recover.model.IncomeContract;
 
@@ -68,13 +67,13 @@ public class IncomeContractDaoImpl implements IncomeContractDao {
 	@Override
 	public IncomeContract searchOne(Map queryMap) {
 		StringBuffer sqlBuffer = new StringBuffer();
-		sqlBuffer.append("from IncomeContrat where");
+		sqlBuffer.append("from IncomeContract where");
 		for(Object obj:queryMap.keySet()){
-			sqlBuffer.append(" "+obj+"="+queryMap.get(obj));
+			sqlBuffer.append(" "+obj+"='"+queryMap.get(obj)+"'");
 		}
 		Query query = sessionFactory.getCurrentSession().createQuery(sqlBuffer.toString());
 		List<IncomeContract> queryList = query.list();
-		if(queryList!=null && queryList.isEmpty()){
+		if(queryList!=null && !queryList.isEmpty()){
 			return  queryList.get(0);
 		}else{
 			return null;
@@ -85,13 +84,13 @@ public class IncomeContractDaoImpl implements IncomeContractDao {
 	@Override
 	public List<IncomeContract> searchList(Map queryMap) {
 		StringBuffer sqlBuffer = new StringBuffer();
-		sqlBuffer.append("from IncomeContrat where");
+		sqlBuffer.append("from IncomeContract where");
 		for(Object obj:queryMap.keySet()){
-			sqlBuffer.append(" "+obj+"="+queryMap.get(obj));
+			sqlBuffer.append(" "+obj+"='"+queryMap.get(obj)+"'");
 		}
 		Query query = sessionFactory.getCurrentSession().createQuery(sqlBuffer.toString());
 		List<IncomeContract> queryList = query.list();
-		if(queryList!=null && queryList.isEmpty()){
+		if(queryList!=null && !queryList.isEmpty()){
 			return  queryList;
 		}else{
 			return null;
