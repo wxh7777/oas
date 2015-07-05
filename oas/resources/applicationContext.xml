@@ -123,7 +123,7 @@
 	</bean>
 	
 	<!-- 收入合同管理 -->
-	<bean id="incomeContractAction" class="com.pfkj.oas.recover.action.IncomeContractAction" autowire="byName" scope="prototype">
+	<bean id="recoverFundAction" class="com.pfkj.oas.recover.action.RecoverFundAction" autowire="byName" scope="prototype">
 		<property name="incomeContractService" ref="incomeContractService"></property>
 	</bean>
 	<bean id="incomeContractService" class="com.pfkj.oas.recover.service.impl.IncomeContractServiceImpl" autowire="byName" scope="prototype">
