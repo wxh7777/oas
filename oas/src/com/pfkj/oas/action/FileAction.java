@@ -414,6 +414,7 @@ public class FileAction extends BaseAction {
 	        	incomeContract.setType(type);
 	        	incomeContract.setNumber(number);
 	        	incomeContract.setUserId(userId);
+	        	incomeContract.setStatus(1);
 				
 	        	StringBuffer fileStr = new StringBuffer();
 	            for (int i = 0; i < files.length; i++) {

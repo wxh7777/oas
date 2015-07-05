@@ -40,6 +40,10 @@ public class IncomeContract {
 	@Column(name = "PATH")
 	private String path;
 	
+	//合同状态
+	@Column(name = "STATUS")
+	private int status;
+	
 	//操作人
 	@Column(name = "USER_ID")
 	private String userId;
@@ -54,14 +58,6 @@ public class IncomeContract {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public String getNumber() {
@@ -87,20 +83,36 @@ public class IncomeContract {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
+	public int getStatus() {
+		return status;
+	}
 
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	public Date getUploadTime() {
 		return uploadTime;
 	}
-
+	
 	public void setUploadTime(Date uploadTime) {
 		this.uploadTime = uploadTime;
 	}
 
 	@Override
 	public String toString() {
-		return "IncomeContract [id=" + id + ", userId=" + userId + ", number="
-				+ number + ", type=" + type + ", path=" + path
-				+ ", uploadTime=" + uploadTime + "]";
+		return "IncomeContract [id=" + id + ", number=" + number + ", type="
+				+ type + ", path=" + path + ", status=" + status + ", userId="
+				+ userId + ", uploadTime=" + uploadTime + "]";
 	}
 
 }
