@@ -16,9 +16,9 @@
 		//判断什么role才有添加的权限
 	%>
  	<div class="cl pd-5 bg-1 bk-gray">
-   	<span class="l">
+   		<span class="l">
      		<a class="btn btn-primary radius" href="javascript:;" onclick="addIncomeContract()"><i class="icon-plus"></i> 添加收入合同</a>
-   	</span>
+   		</span>
  	</div>
  	<%
  	%>

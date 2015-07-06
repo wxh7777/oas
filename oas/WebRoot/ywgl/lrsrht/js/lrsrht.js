@@ -7,7 +7,6 @@ function initIncomeContractList(){
 	$('#incomeContractListTable').DataTable({
 		ajax:"recoverfund-getIncomeContractList.action",
 	    bSort:false,
-	    bFilter:false,
 	    columns:[
 	                { data: "id" },
 	                { data: "xiangmuId" },
