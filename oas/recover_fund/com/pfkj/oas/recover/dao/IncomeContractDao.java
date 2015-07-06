@@ -23,6 +23,8 @@ public interface IncomeContractDao {
 	public IncomeContract searchOne(Map queryMap);
 	//查询多条
 	public List<IncomeContract> searchList(Map queryMap);
+	//根据用户获取当前对应的收入合同
+	public List<Map> searchListByUserId(String userName);
 	
 	
 }

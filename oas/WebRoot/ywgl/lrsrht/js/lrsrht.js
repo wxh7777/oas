@@ -8,11 +8,11 @@ function initIncomeContractList(){
 		ajax:"recoverfund-getIncomeContractList.action",
 	    bSort:false,
 	    columns:[
-	                { data: "id" },
-	                { data: "xiangmuId" },
-	                { data: "type" },
-	                { data: "number" },
-	                { data: "path" }
+	                { data: "ID" },
+	                { data: "XM_MC" },
+	                { data: "TYPE" },
+	                { data: "NUMBER" },
+	                { data: "PATH" }
 	    ],
 	    oLanguage: {
 	            	"sLengthMenu": "每页显示 _MENU_ 条记录",

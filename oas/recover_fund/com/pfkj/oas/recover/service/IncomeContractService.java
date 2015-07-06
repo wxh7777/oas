@@ -23,5 +23,8 @@ public interface IncomeContractService {
 	public IncomeContract searchOne(Map queryMap);
 	//查询多条
 	public List<IncomeContract> searchList(Map queryMap);
+	//更加当前登录用户的ID获取他管理的收入合同
+	public List<Map> searchListByUserId(String userId);
+	
 
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import org.directwebremoting.json.JsonObject;
@@ -134,10 +135,12 @@ public class RecoverFundAction extends BaseAction {
 	 * @return
 	 */
 	public void getIncomeContractList(){
-		List<IncomeContract> incomeContractList = new ArrayList<IncomeContract>();
-		Map queryMap = new HashMap();
-		queryMap.put("XIANGMU_ID","11111139763039816337");
-		incomeContractList = incomeContractService.searchList(queryMap);
-		JsonUtil.output(response, JSONArray.fromObject(incomeContractList).toString());
+		List<Map> incomeContractList = new ArrayList<Map>();
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userName = userDetails.getUsername();
+		incomeContractList = incomeContractService.searchListByUserId(userName);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("data", JSONArray.fromObject(incomeContractList).toString());
+		JsonUtil.output(response, jsonObject.toString());
 	}
 }

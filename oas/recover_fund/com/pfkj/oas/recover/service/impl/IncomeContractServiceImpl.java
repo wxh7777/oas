@@ -49,4 +49,10 @@ public class IncomeContractServiceImpl implements IncomeContractService {
 		return incomeContractDao.searchList(queryMap);
 	}
 
+	@Override
+	public List<Map> searchListByUserId(String userName) {
+		// TODO Auto-generated method stub
+		return incomeContractDao.searchListByUserId(userName);
+	}
+
 }
