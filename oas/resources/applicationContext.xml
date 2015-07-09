@@ -122,7 +122,29 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
+	<!-- 回收资金管理 -->
+	<bean id="recoverFundAction" class="com.pfkj.oas.recover.action.RecoverFundAction" autowire="byName" scope="prototype">
+		<property name="incomeContractService" ref="incomeContractService"></property>
+		<property name="receivableNoticeCardService" ref="receivableNoticeCardService"></property>
+	</bean>
+	<!-- 收入合同 -->
+	<bean id="incomeContractService" class="com.pfkj.oas.recover.service.impl.IncomeContractServiceImpl" autowire="byName" scope="prototype">
+		<property name="incomeContractDao" ref="incomeContractDao"></property>
+	</bean>
+	<bean id="incomeContractDao" parent="baseDao" class="com.pfkj.oas.recover.dao.impl.IncomeContractDaoImpl" autowire="byName" scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 回收通知单 -->
+	<bean id="receivableNoticeCardService" class="com.pfkj.oas.recover.service.impl.ReceivableNoticeCardServiceImpl" autowire="byName" scope="prototype">
+		<property name="receivableNoticeCardDao" ref="receivableNoticeCardDao"></property>
+	</bean>
+	<bean id="receivableNoticeCardDao" parent="baseDao" class="com.pfkj.oas.recover.dao.impl.ReceivableNoticeCardDaoImpl" autowire="byName" scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 文件管理 -->
 	<bean id="fileAction" class="com.pfkj.oas.action.FileAction" autowire="byName" scope="prototype">
 		<property name="service" ref="JsdService"></property>
+		<property name="incomeContractService" ref="incomeContractService"></property>
 	</bean>
 </beans>

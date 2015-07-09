@@ -20,7 +20,10 @@ import com.pfkj.oas.file.HtmxResult;
 import com.pfkj.oas.file.JcmxResult;
 import com.pfkj.oas.file.JcmxResult.JcmxBase;
 import com.pfkj.oas.model.HthbDo;
+import com.pfkj.oas.recover.model.IncomeContract;
+import com.pfkj.oas.recover.service.IncomeContractService;
 import com.pfkj.oas.service.JsdService;
+import com.pfkj.oas.util.JsonUtil;
 import com.pfkj.oas.util.StringUtil;
 
 public class FileAction extends BaseAction {
@@ -52,7 +55,18 @@ public class FileAction extends BaseAction {
 	public void setService(JsdService service) {
 		this.service = service;
 	}
+    
+	//收入合同
+    private IncomeContractService incomeContractService;
+    
+    public IncomeContractService getIncomeContractService() {
+		return incomeContractService;
+	}
 
+	public void setIncomeContractService(IncomeContractService incomeContractService) {
+		this.incomeContractService = incomeContractService;
+	}
+    
 	public File getHtmxFile() {
 		return htmxFile;
 	}
@@ -68,8 +82,6 @@ public class FileAction extends BaseAction {
 	public void setMyFile(File[] myFile) {
 		this.myFile = myFile;
 	}
-
-	
 
 	public String[] getMyFileFileName() {
 		return myFileFileName;
@@ -87,7 +99,6 @@ public class FileAction extends BaseAction {
 		this.myFileContentType = myFileContentType;
 	}
 
-	
 	public File getHthbYjFile() {
 		return hthbYjFile;
 	}
@@ -375,4 +386,67 @@ public class FileAction extends BaseAction {
 			} 
 		
     }
+    
+    /**
+     * 上传收入合同
+     */
+    public void uploadIncomeContract(){
+    	int ret = -1;
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		try {
+			//取得需要上传的文件数组
+	        File[] files = getMyFile();
+	        String hbbh = StringUtil.getNanoStrByLength(20);
+	        if (files !=null && files.length > 0) {
+	        	File file = new File(getSavePath() + "\\" + hbbh);
+	        	if  (!file.exists()) {
+	        		file.mkdirs();
+	        	}
+	        	
+	        	IncomeContract incomeContract = new IncomeContract();
+	        	String type = request.getParameter("type");
+	    		String number = request.getParameter("number");
+	    		String xiangmuId = request.getParameter("xiangmuId");
+	    		//获取用户名
+	    		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    		String userId = userDetails.getUsername();
+	        	incomeContract.setType(type);
+	        	incomeContract.setNumber(number);
+	        	incomeContract.setXiangmuId(xiangmuId);
+	        	incomeContract.setUserId(userId);
+	        	incomeContract.setStatus(1);
+				
+	        	StringBuffer fileStr = new StringBuffer();
+	            for (int i = 0; i < files.length; i++) {
+	            	if(fileStr.equals("")){
+	            		fileStr.append(";");
+	            	}
+	                //建立上传文件的输出流, getImageFileName()[i]
+	                String filename =  "\\" + hbbh + "\\"+ getMyFileFileName()[i] ;
+	                System.out.println(getSavePath() +filename);
+	                FileOutputStream fos = new FileOutputStream(getSavePath() +filename);
+	                //建立上传文件的输入流
+	                FileInputStream fis = new FileInputStream(files[i]);
+	                byte[] buffer = new byte[1024];
+	                int len = 0;
+	                while ((len=fis.read(buffer))>0) {
+	                    fos.write(buffer, 0, len);
+	                }
+	                fos.close();
+	                fis.close();
+	                fileStr.append(filename);
+	            }
+	            incomeContract.setPath(fileStr.toString());
+	            incomeContract.setUploadTime(new Date());
+		        boolean res = incomeContractService.insert(incomeContract);
+		        if(res){
+		        	ret = 1;
+		        }
+		        JsonUtil.output(response, ""+ret);
+	        }
+		}  catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

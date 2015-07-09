@@ -18,32 +18,41 @@
 		</action>
 	</package>
 
-
-	
 	<package name="qx" extends="struts-default">
 		<action name="qx-*" class="qxAction" method="{1}">
 			<result name="success">/help.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 	</package>
+	
 	<package name="jsdgl" extends="struts-default">
 		<action name="jsdgl-*" class="jsdglAction" method="{1}">
 			<result name="success">/help.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 	</package>
+	
 	<package name="fkgl" extends="struts-default">
 		<action name="fkgl-*" class="fkglAction" method="{1}">
 			<result name="success">/help.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 	</package>
+	
 	<package name="skgl" extends="struts-default">
 		<action name="skgl-*" class="skglAction" method="{1}">
 			<result name="success">/help.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 	</package>
+	<!-- 回收款 -->
+	<package name="recoverfund" extends="struts-default">
+		<action name="recoverfund-*" class="recoverFundAction" method="{1}">
+			<result name="success">/help.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+	</package>
+	
 	<package name="css" extends="struts-default">
 		<action name="css" class="com.pfkj.oas.action.BaseAction" method="test">
 			<result name="success">/help.jsp</result>
