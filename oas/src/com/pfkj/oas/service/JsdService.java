@@ -88,7 +88,8 @@ public class JsdService {
 			String files = "";
 			String[] fs = hthb.getFiles().split(";");
 			for(int j=0;j<fs.length;j++){
-				files = files + "<a name='file' class='btn-link' href=\"javascript:;\">"+fs[j]+"</a></br>";
+				String htFileName = fs[j].replace("\\"+hthb.getHbbh()+"\\", "");
+				files = files + "<a name='file' class='btn-link' href=\"javascript:;\">"+htFileName+"</a></br>";
 			}
 	        map.put("HTWJLB", files);
 	        Date dateFile = hthb.getHtFilesDate();

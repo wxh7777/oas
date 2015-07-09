@@ -295,7 +295,6 @@ public class FileAction extends BaseAction {
     public InputStream getDownloadFile() throws Exception  
     {  
     	return new FileInputStream(this.getSavePath() + getDwChineseFileName());
-       
     }  
     public String download() throws UnsupportedEncodingException{
     	return SUCCESS;

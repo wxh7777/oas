@@ -34,7 +34,10 @@ function init(){
 	});
 
 	$("a[name=file]").on("click","",function(){
-		download(this.textContent);
+		var hthbbh=this.parentNode.parentNode.children[0].innerHTML;
+        var filename = "\\"+hthbbh+"\\"+this.textContent;
+		
+		download(filename);
 	});
 	
 	$("#tableData tbody").on("click",".uploadBtn",function(row){
