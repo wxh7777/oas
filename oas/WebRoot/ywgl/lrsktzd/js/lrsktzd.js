@@ -68,3 +68,44 @@ function doReceivableNoticeCardSubmit(){
 function doReceivableNoticeCardClean(){
 	$( "#receivalbeNoticeCardForm").resetForm();
 }
+
+//打开收款通知单汇总
+function openReceivalbeNoticeCardTotal(){
+	layerShow("800","","收款通知单汇总","lrsktzd-total.jsp?type=add");
+}
+
+//初始化汇总表格
+function initReceivalbeNoticeCardTotalTable(){
+	//判断是否登录
+    isLogin();
+    //初始化表格
+	$('#receivalbeNoticeCardTotalTable').DataTable({
+		ajax:"recoverfund-getReceivalNoticeCardTotalList.action",
+	    bSort:false,
+	    columns:[
+	                { data: "ID" },
+	                { data: "XM_MC" },
+	                { data: "METERING_NUM" },
+	                { data: "ADVANCE_MONEY" },
+	                { data: "METERING_MONEY" },
+	                { data: "HOLD_MONEY" },
+	                { data: "WARRANTY_MONEY" },
+	                { data: "FARMER_MONEY" },
+	                { data: "OTHER_MONEY" },
+	                { data: "MEMO" }
+	    ],
+	    oLanguage: {
+	            	"sLengthMenu": "每页显示 _MENU_ 条记录",
+	            	"sZeroRecords": "抱歉， 没有找到",
+	            	"sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+	            	"sInfoEmpty": "没有数据",
+	            	"sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+	            	"oPaginate": {
+		            	"sFirst": "首页",
+		            	"sPrevious": "前一页",
+		            	"sNext": "后一页",
+		            	"sLast": "尾页"
+		            	}
+	      }
+	});
+}

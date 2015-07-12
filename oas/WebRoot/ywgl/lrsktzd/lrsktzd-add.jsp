@@ -20,7 +20,7 @@
 	            	<td colspan="3">
 						<select class="select select-box" name="receivableNoticeCard.xiangmuId">
 							<option value="11111139763039816337">项目一</option>
-							<option value="11111139763039816337">项目二</option>
+							<option value="11111118892061438478">项目二</option>
 						</select>
 					</td>
 					<td><div class="text-r">合同金额</div></td>
