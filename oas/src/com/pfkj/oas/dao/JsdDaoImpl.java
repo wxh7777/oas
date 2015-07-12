@@ -1,5 +1,6 @@
 package com.pfkj.oas.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.pfkj.oas.model.ZjrbVo;
 import com.pfkj.oas.model.dm.DmZjrbXm;
 import com.pfkj.oas.model.dm.DmZyVo;
 import com.pfkj.oas.model.qx.QxUser;
+import com.pfkj.oas.recover.model.ReceivableNoticeCard;
 import com.pfkj.oas.util.DateUtil;
 
 public class JsdDaoImpl implements JsdDao  {
@@ -358,6 +360,37 @@ public class JsdDaoImpl implements JsdDao  {
 		hql.append("from ZjrbMxVo where isenabled='1' and zjrb_id='"+id+"'");
 		Query query = sessionFactory.getCurrentSession().createQuery(hql.toString());
 		List<ZjrbMxVo> queryList = query.list();
+		return queryList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional("transactionManager")
+	@Override
+	public List<ReceivableNoticeCard> getSktzdList(String xmdm) {
+		StringBuffer hql = new StringBuffer();
+		hql.append("from ReceivableNoticeCard where isenabled='1' and xiangmuId='"+xmdm+"'");
+		Query query = sessionFactory.getCurrentSession().createQuery(hql.toString());
+		List<ReceivableNoticeCard> queryList = query.list();
+		return queryList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional("transactionManager")
+	@Override
+	public List<ShouQuanDo> getFktzdList(String xmdm) {
+		List<ShouQuanDo> queryList = new ArrayList<ShouQuanDo>();
+		StringBuffer hql = new StringBuffer();
+		
+		hql.append("from JieSuanDanVo where isenabled='1' and xmid='"+xmdm+"'");
+		Query query = sessionFactory.getCurrentSession().createQuery(hql.toString());
+		List<JieSuanDanVo> jsdList = query.list();
+		for(JieSuanDanVo jsd:jsdList){
+			hql = new StringBuffer();
+			hql.append("from ShouQuanDo where isenabled='1' and clzt='05' and jsdbh='"+jsd.getJsdbh()+"'");
+			Query query1 = sessionFactory.getCurrentSession().createQuery(hql.toString());
+			List<ShouQuanDo> sqList = query1.list();
+			queryList.addAll(sqList);
+		}
 		return queryList;
 	}
 }

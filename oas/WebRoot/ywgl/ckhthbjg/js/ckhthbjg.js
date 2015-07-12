@@ -31,11 +31,27 @@ function init(){
 		            	"sNext": "后一页",
 		            	"sLast": "尾页"
 		            	}
-	            	}
+	            	},
+	    columnDefs: [
+	                 {
+			            "render": function(data, type, row) {
+	                		var tmp = data;
+	                		if(tmp!=null&&tmp!=""){
+	                			tmp="<a name='file' class='btn-link' href='javascript:;'>"+ tmp +"</a>";
+	                		}
+	                		else{
+	                			tmp="未审核";
+	                		}
+		                    return tmp;
+			            },
+			            "aTargets": [2,5]
+			        }]
 	});
 
 	$("a[name=file]").on("click","",function(){
-		download(this.textContent);
+		var hthbbh=this.parentNode.parentNode.children[0].innerHTML;
+        var filename = "\\"+hthbbh+"\\"+this.textContent;
+		download(filename);
 	});
 	
 }

@@ -29,18 +29,24 @@
 <body onLoad="init()"> 
 <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span> 录入资金日报 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav> 
 <div class="pd-20" style="width:90%;padding-left:5%">
+	
 	<div class="row">
-		<div calss="col-3" style="float:left">选择项目：</div>
-		<div calss="col-3" style="float:left">
-			<select class="select select-box" id="xmdm" name="xmid"></select>
-		</div>
-		<div calss="col-6" style="float:left"></div>
-	</div>
-	<div class="row">
-		<div calss="col-3" style="float:left">填报单位：</div>
-		<div calss="col-3" style="float:left"></div>
-		<div calss="col-3" style="float:right">填报时间：</div>
-		<div calss="col-3" style="float:right"></div>
+		<table  class="table">
+			<tr class=" ">
+				<td><div class="text-r">项目名称</div></td>
+	          	<td>
+	          		<select class="select select-box" id="xmdm" name="xmdm" size="1" ></select>
+	          	</td>
+				<td colspan="3"></td>
+			</tr>
+			<tr>
+				<td width="15%">填报单位:</td>
+				<td width="25%"></td>
+				<td width="30%"></td>
+				<td width="15%">填报时间:</td>
+				<td width="15%"></td>
+			</tr>
+		</table>
 	</div>
 	<div class="row">
 		<div class="col-12 pb-10">

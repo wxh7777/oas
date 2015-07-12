@@ -9,17 +9,17 @@
 	<title>合同核备</title>
 	<jsp:include page="/head.jsp" flush="true"></jsp:include>
 </head>
-<body onLoad="init()"> 
+<body onLoad="init('A')"> 
 <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span> 合同核备 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav> 
 <div class="pd-20">
 	<table id="tableData" class="table table-border table-bordered table-striped">
        	<thead>
        		<tr class="text-c">
-       			<th width="" id="HTHBBH">合同核备编号</th>
-       			<th width="" id="SCWJSJ">上传时间</th>
-       			<th width="50%" id="HTWJLB">合同文件列表</th>
-       			<th width="20%" id="SHJYWD">审核意见文档</th>
-       			<th width="" id="SH">审核</th>
+       			<th>合同核备编号</th>
+       			<th>上传时间</th>
+       			<th>合同文件列表</th>
+       			<th>审核意见文档</th>
+       			<th>审核</th>
        		</tr>
        	</thead>
        	<tbody class="text-c"></tbody>

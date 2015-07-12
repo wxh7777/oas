@@ -13,6 +13,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import com.pfkj.oas.dao.JsdDao;
+import com.pfkj.oas.model.FktzdVo;
 import com.pfkj.oas.model.HeTongMxVo;
 import com.pfkj.oas.model.HeTongVo;
 import com.pfkj.oas.model.HthbDo;
@@ -25,6 +26,7 @@ import com.pfkj.oas.model.ZjrbVo;
 import com.pfkj.oas.model.dm.DmZjrbXm;
 import com.pfkj.oas.model.dm.DmZyVo;
 import com.pfkj.oas.model.qx.QxUser;
+import com.pfkj.oas.recover.model.ReceivableNoticeCard;
 import com.pfkj.oas.util.ConstantUtil;
 import com.pfkj.oas.util.DateUtil;
 
@@ -278,5 +280,20 @@ public class JsdManager {
 			ZjrbMxVo xm = list.get(i);
 			dao.delete(xm);
 		}
+	}
+
+	public List<FktzdVo> getFktzdList(String xmdm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ShouQuanDo getSqById(String sqdo_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<ReceivableNoticeCard> getSktzdList(String xmdm) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

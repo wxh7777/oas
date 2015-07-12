@@ -1,5 +1,6 @@
 package com.pfkj.oas.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -9,13 +10,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jxl.Workbook;
+import jxl.write.Number;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+
+import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.mortbay.log.Log;
 
+import com.pfkj.oas.dao.JsdDao;
 import com.pfkj.oas.file.HtmxResult.HtmxBase;
 import com.pfkj.oas.file.JcmxResult.JcmxBase;
 import com.pfkj.oas.file.JcmxResult.JcmxDetail;
-import com.pfkj.oas.manager.JsdManager;
 import com.pfkj.oas.model.HeTongMxVo;
 import com.pfkj.oas.model.HeTongVo;
 import com.pfkj.oas.model.HthbDo;
@@ -27,6 +35,7 @@ import com.pfkj.oas.model.ZjrbMxVo;
 import com.pfkj.oas.model.ZjrbVo;
 import com.pfkj.oas.model.dm.DmZjrbXm;
 import com.pfkj.oas.model.qx.QxUser;
+import com.pfkj.oas.recover.model.ReceivableNoticeCard;
 import com.pfkj.oas.util.CacheUtil;
 import com.pfkj.oas.util.ConstantUtil;
 import com.pfkj.oas.util.DateUtil;
@@ -34,29 +43,61 @@ import com.pfkj.oas.util.JsonUtil;
 import com.pfkj.oas.util.StringUtil;
 
 public class JsdService {
-	JsdManager manager;
-	public JsdManager getManager() {
-		return manager;
+
+	private static Logger logger = Logger.getLogger(JsdService.class);
+	
+	public JsdDao dao;
+	
+
+	public JsdDao getDao() {
+		return dao;
 	}
-	public void setManager(JsdManager manager) {
-		this.manager = manager;
-	}
-	public boolean saveJsdMx(JsdMxVo jsdmx){
-		return manager.saveJsdMx(jsdmx);
+
+	public void setDao(JsdDao dao) {
+		this.dao = dao;
 	}
 	public boolean exportJsd(String xmlStr,String filename) {
 		boolean result = false;
-		result = manager.exportJsd(xmlStr,filename);
+		try{
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(filename));
+			WritableSheet sheet = workbook.createSheet("First Sheet", 0);
+			for(int i=0;i<sheet.getRows();i++){
+				for(int j=0;j<sheet.getColumns();j++){
+					Number number = new Number(i, j, i+j); 
+					sheet.addCell(number);
+				}
+			}
+			workbook.write(); 
+			workbook.close();
+			result = true;
+		}
+		catch(WriteException e){
+			result = false;
+			logger.error(e.getMessage()+e.getStackTrace());
+		}
+		catch(IOException e){
+			result =  false;
+			logger.error(e.getMessage()+e.getStackTrace());
+		}
 		return result;
 	}
-	public boolean saveJsd(JieSuanDanVo jsdVo) {
-		return manager.saveJsd(jsdVo);
-	}
-	public boolean saveHt(HeTongVo htVo) {
-		return manager.saveHt(htVo);
-	}
 	public String searchHtlist() {
-		return manager.searchHtlist();
+		StringBuffer sBuffer = new StringBuffer();
+		sBuffer.append("[");
+		List<HeTongVo> list = dao.searchHtlist();
+		for (int i=0;i<list.size();i++) {
+			HeTongVo ht = list.get(i);
+			if(i!=0){
+				sBuffer.append(",");
+			}
+			sBuffer.append("{text:'");
+			sBuffer.append(ht.getHtmc());
+			sBuffer.append("',value:'");
+			sBuffer.append(ht.getHtbh());
+			sBuffer.append("'}");
+		}
+		sBuffer.append("]");
+		return sBuffer.toString();
 	}
 	public String searchZylist() {
 		return CacheUtil.getInstance().getCache("ZYDM");
@@ -66,20 +107,29 @@ public class JsdService {
         return null; 
 	}
 	public void fhJsd(String jsdbh) {
-		manager.fhJsd(jsdbh);
+		JieSuanDanVo vo = dao.getJsdByJsdbh(jsdbh);
+		vo.setShsj(new Date());
+		dao.save(vo);
 	}
 	public void jjJsd(String jsdbh) {
-		manager.jjJsd(jsdbh);
+		JieSuanDanVo vo = dao.getJsdByJsdbh(jsdbh);
+		vo.setJjsj(new Date());
+		dao.save(vo);
 	}
 	public void saveHthbDo(HthbDo hthb) {
-		manager.saveHthbDo(hthb);
+		dao.save(hthb);
 	}
 	public HthbDo getHthbDoByHthbbh(String hthbbh) {
-		return manager.getHthbDoByHthbbh(hthbbh);
+		return dao.getHthbDoByHthbbh(hthbbh);
 	}
 	@SuppressWarnings("rawtypes")
 	public String searchHthblist(QxUser user) {
-		List<HthbDo> list = manager.searchHthblist(user);
+		List<HthbDo> list = new ArrayList<HthbDo>();
+		List<XiangMuVo> xmList = dao.getProjectByUser(user);
+		for(XiangMuVo xm : xmList){
+			List<HthbDo> listHb = dao.getHthbDoByXm(xm);
+			list.addAll(listHb);
+		}
 		List<Map> listMap = new ArrayList<Map>();
 		for(int i=0;i<list.size();i++){
 			HthbDo hthb = list.get(i);
@@ -88,8 +138,8 @@ public class JsdService {
 			String files = "";
 			String[] fs = hthb.getFiles().split(";");
 			for(int j=0;j<fs.length;j++){
-				String htFileName = fs[j].replace("\\"+hthb.getHbbh()+"\\", "");
-				files = files + "<a name='file' class='btn-link' href=\"javascript:;\">"+htFileName+"</a></br>";
+				String fileName = fs[j].replace("\\"+hthb.getHbbh()+"\\", "");
+				files = files + "<a name='file' class='btn-link' href=\"javascript:;\">"+fileName+"</a></br>";
 			}
 	        map.put("HTWJLB", files);
 	        Date dateFile = hthb.getHtFilesDate();
@@ -98,8 +148,11 @@ public class JsdService {
 	        	scsj = StringUtil.dateToStringMx(dateFile);
 	        }
 	        map.put("SCWJSJ", scsj);
-	        String shA = "<a name='file' class='btn-link' href='javascript:;'>"+ hthb.getShFileA()+"</a>";
-	        map.put("GCBSHYJWD", shA);
+	        String fileNameA = "";
+	        if(hthb.getShFileA()!=null){
+	        	fileNameA = hthb.getShFileA().replace("\\"+hthb.getHbbh()+"\\", "");
+	        }
+	        map.put("GCBSHYJWD", fileNameA);
 	        String shsj = "";
 	        Date date = hthb.getShFileADate();
 	        if(date!=null){
@@ -107,13 +160,17 @@ public class JsdService {
 	        }
 	        map.put("GCBSHSJ", shsj);
 	        map.put("GCBSHR", hthb.getShrA());
-	        String shB = "<a name='file' class='btn-link' href='javascript:;'>"+ hthb.getShFileB()+"</a>";
-	        map.put("SWBSHYJWD", shB);
-	        Date date2 = hthb.getShFileBDate();
-	        if(date2!=null){
-	        	shsj = StringUtil.dateToStringMx(date2);
+	        String fileNameB = "";
+	        if(hthb.getShFileB()!=null){
+	        	fileNameB = hthb.getShFileB().replace("\\"+hthb.getHbbh()+"\\", "");
 	        }
-	        map.put("SWBSHSJ", shsj);
+	        map.put("SWBSHYJWD", fileNameB);
+	        Date date2 = hthb.getShFileBDate();
+	        String shsj2 = "";
+	        if(date2!=null){
+	        	shsj2 = StringUtil.dateToStringMx(date2);
+	        }
+	        map.put("SWBSHSJ", shsj2);
 	        map.put("SWBSHR", hthb.getShrB());
 	        listMap.add(map);
 		}
@@ -121,16 +178,16 @@ public class JsdService {
         return result;
 	}
 	public String excuteHtbh(String xmid, String htlbdm) {
-		int num = manager.getHTNum(xmid,htlbdm);
+		int num = dao.getHTNum(xmid,htlbdm);
 		return String.format("%05d", num+1);
 	}
 	@SuppressWarnings("rawtypes")
 	public String getHtList(String xmdm) {
-		List<HeTongVo> list = manager.searchHtlist(xmdm);
+		List<HeTongVo> list = dao.searchHtlist(xmdm);
 		List<Map> listMap = new ArrayList<Map>();
 		for(int i=0;i<list.size();i++){
 			HeTongVo ht = list.get(i);
-			List<HeTongMxVo> mxvos = manager.searchHtmxlist(ht.getHtbh());
+			List<HeTongMxVo> mxvos = dao.searchHtmxlist(ht.getHtbh());
 			List<Map> listMapMx = new ArrayList<Map>();
 			for(int j=0;j<mxvos.size();j++){
 				HeTongMxVo mx = mxvos.get(j);
@@ -151,7 +208,7 @@ public class JsdService {
         return result;
 	}
 	public String excuteJsdbh(String htbh) {
-		int num = manager.getJsdNum(htbh);
+		int num = dao.getJsdNum(htbh);
 		return String.format("%05d", num+1);
 	}
 	@SuppressWarnings("rawtypes")
@@ -210,11 +267,11 @@ public class JsdService {
 				double zj = Double.parseDouble(mapStr.get("htmxZj").toString());
 				htmxVo.setZongjia(zj);
 				htmxVo.setEnabled(true);
-				manager.saveHtmx(htmxVo);
+				dao.save(htmxVo);
 				htzj = htzj + zj;
 	        }
 			htVo.setHtzj(htzj);
-			manager.saveHt(htVo);
+			dao.save(htVo);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -222,15 +279,15 @@ public class JsdService {
 	}
 	@SuppressWarnings("rawtypes")
 	public String searchHtmxlist(QxUser user) {
-		List<XiangMuVo> xmList = manager.getXiangMuList(user);
+		List<XiangMuVo> xmList = dao.getProjectByUser(user);
 		List<Map> listMap = new ArrayList<Map>();
 		int xh = 1;
 		for(int k = 0;k<xmList.size();k++){
 			XiangMuVo xm = xmList.get(k);
-			List<HeTongVo> list = manager.searchHtlist(xm.getId());
+			List<HeTongVo> list = dao.searchHtlist(xm.getId());
 			for(int i=0;i<list.size();i++){
 				HeTongVo ht = list.get(i);
-				List<HeTongMxVo> mxList = manager.searchHtmxlist(ht.getHtbh());
+				List<HeTongMxVo> mxList = dao.searchHtmxlist(ht.getHtbh());
 				for(int j=0;j<mxList.size();j++){
 					HeTongMxVo mx = mxList.get(j);
 					Map<String, String> map = new HashMap<String, String>();
@@ -319,9 +376,9 @@ public class JsdService {
 				jsdmxVo.setGg(jsxmgg[1]);
 				String sl = mapStr.get("jcmxSl").toString();
 				jsdmxVo.setSl(Integer.parseInt(sl));
-				manager.saveJsdmx(jsdmxVo);
+				dao.save(jsdmxVo);
 	        }
-			manager.saveJsd(jsdVo);
+			dao.save(jsdVo);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -330,7 +387,7 @@ public class JsdService {
 	@SuppressWarnings("rawtypes")
 	public String searchJsdlist(String htbh) {
 		List<Map> listMap = new ArrayList<Map>();
-		List<JieSuanDanVo> jsdList = manager.getJsdList(htbh);
+		List<JieSuanDanVo> jsdList = dao.getJsdList(htbh);
 		for(int i=0;i<jsdList.size();i++){
 			JieSuanDanVo jsd = jsdList.get(i);
 			Map<String, String> map = new HashMap<String, String>();
@@ -350,7 +407,7 @@ public class JsdService {
             	shsj = DateUtil.dateTo10String(jsd.getShsj());
             }
             map.put("SHSJ", shsj);
-            List<ShouQuanDo> sqList = manager.getSqListByJsdbh(jsd.getJsdbh());
+            List<ShouQuanDo> sqList = dao.getSqListByJsdbh(jsd.getJsdbh());
             double ysqje = 0;
             double ysqwshje = 0;
             for(ShouQuanDo sq : sqList){
@@ -366,6 +423,7 @@ public class JsdService {
             map.put("YSQWSHJE", String.valueOf(ysqwshje));
             map.put("JSRQ", DateUtil.dateTo10String(jsd.getTbsj()));
 		    listMap.add(map);
+		
 		}
         String result = JsonUtil.BuildJson(listMap);
         return result;
@@ -373,7 +431,7 @@ public class JsdService {
 	public String searchPrintJsd(String jsdbh) {
         
         Map<String,String> mapRes = new HashMap<String, String>();
-        JieSuanDanVo jsd = manager.getJsd(jsdbh);
+        JieSuanDanVo jsd = dao.getJsdByJsdbh(jsdbh);
         mapRes.put("HTBH", jsd.getHtbh());
 		mapRes.put("RQFW", DateUtil.dateTo10String(jsd.getRq()));
 		mapRes.put("JSDW", "");
@@ -394,13 +452,29 @@ public class JsdService {
         return result;
 	}
 	public void qrsq(String jsdbh, double sqje) {
-		manager.qrsq(jsdbh,sqje);
+		ShouQuanDo sq = new ShouQuanDo();
+		sq.setJsdbh(jsdbh);
+		sq.setSqje(sqje);
+		sq.setSQSJ(new Date());
+		sq.setSqly("由结算单付款");
+		sq.setYsqbz('N');
+		sq.setClzt(ConstantUtil.SHOUQUAN_CLZT_XJSQ);
+		sq.setFktzddycs(0);
+		sq.setEnabled(true);
+		dao.save(sq);
 	}
 
 
 	public String sqsh(String sqid, boolean istg) {
 		try{
-			manager.sqsh(sqid,istg);
+			ShouQuanDo sq = dao.getSqById(sqid);
+			if(istg){
+				sq.setClzt(ConstantUtil.SHOUQUAN_CLZT_SHTG);
+			}
+			else{
+				sq.setClzt(ConstantUtil.SHOUQUAN_CLZT_SHSB);
+			}
+			dao.save(sq);
 			return "成功";
 		}
 		catch(Exception e){
@@ -410,10 +484,10 @@ public class JsdService {
 	@SuppressWarnings("rawtypes")
 	public String searchSqDsh(String htbh) {
 		List<Map> listMap = new ArrayList<Map>();
-		List<JieSuanDanVo> jsdList = manager.getJsdList(htbh);
+		List<JieSuanDanVo> jsdList = dao.getJsdList(htbh);
 		for(int i=0;i<jsdList.size();i++){
 			JieSuanDanVo jsd = jsdList.get(i);
-			List<ShouQuanDo> sqList = manager.getSqListByJsdbh(jsd.getJsdbh());
+			List<ShouQuanDo> sqList = dao.getSqListByJsdbh(jsd.getJsdbh());
             for(int j=0;j<sqList.size();j++){
             	ShouQuanDo sq = sqList.get(j);
             	Map<String, String> map = new HashMap<String, String>();
@@ -444,7 +518,26 @@ public class JsdService {
 	public String ysq(String htbh, String yusqje, String ysqly) {
 		String jsdbh = htbh+"-预授权-"+excuteJsdbh(htbh);
 		try{
-			manager.ysq(htbh,jsdbh,Double.parseDouble(yusqje),ysqly);
+			JieSuanDanVo jsd = new JieSuanDanVo();
+			jsd.setJsdbh(jsdbh);
+			jsd.setLeibie("预授权");
+			jsd.setHtbh(htbh);
+			jsd.setZje(Double.parseDouble(yusqje));
+			jsd.setRq(new Date());
+			jsd.setYsqbz('Y');
+			jsd.setEnabled(true);
+			dao.save(jsd);
+			
+			ShouQuanDo sq = new ShouQuanDo();
+			sq.setJsdbh(jsdbh);
+			sq.setSqje(Double.parseDouble(yusqje));
+			sq.setSqly(ysqly);
+			sq.setFktzddycs(0);
+			sq.setClzt(ConstantUtil.SHOUQUAN_CLZT_XJSQ);
+			sq.setSQSJ(new Date());
+			sq.setYsqbz('Y');
+			sq.setEnabled(true);
+			dao.save(sq);
 			return "成功";
 		}
 		catch(Exception e){
@@ -453,7 +546,9 @@ public class JsdService {
 	}
 	public String scfktzd(String sqid) {
 		try{
-			manager.scfktzd(sqid);
+			ShouQuanDo sq = dao.getSqById(sqid);
+			sq.setClzt(ConstantUtil.SHOUQUAN_CLZT_SCFKTZD);
+			dao.save(sq);
 			return "成功";
 		}
 		catch(Exception e){
@@ -463,10 +558,10 @@ public class JsdService {
 	@SuppressWarnings("rawtypes")
 	public String searchScfktzd(String htbh) {
 		List<Map> listMap = new ArrayList<Map>();
-		List<JieSuanDanVo> jsdList = manager.getJsdList(htbh);
+		List<JieSuanDanVo> jsdList = dao.getJsdList(htbh);
 		for(int i=0;i<jsdList.size();i++){
 			JieSuanDanVo jsd = jsdList.get(i);
-			List<ShouQuanDo> sqList = manager.getSqListByJsdbh(jsd.getJsdbh());
+			List<ShouQuanDo> sqList = dao.getSqListByJsdbh(jsd.getJsdbh());
             for(int j=0;j<sqList.size();j++){
             	ShouQuanDo sq = sqList.get(j);
             	
@@ -498,10 +593,10 @@ public class JsdService {
 	@SuppressWarnings("rawtypes")
 	public String searchFktzd(String htbh) {
 		List<Map> listMap = new ArrayList<Map>();
-		List<JieSuanDanVo> jsdList = manager.getJsdList(htbh);
+		List<JieSuanDanVo> jsdList = dao.getJsdList(htbh);
 		for(int i=0;i<jsdList.size();i++){
 			JieSuanDanVo jsd = jsdList.get(i);
-			List<ShouQuanDo> sqList = manager.getSqListByJsdbh(jsd.getJsdbh());
+			List<ShouQuanDo> sqList = dao.getSqListByJsdbh(jsd.getJsdbh());
             for(int j=0;j<sqList.size();j++){
             	ShouQuanDo sq = sqList.get(j);
             	Map<String, String> map = new HashMap<String, String>();
@@ -537,7 +632,7 @@ public class JsdService {
 		List<Map> fkzjfylist = new ArrayList<Map>();
 		List<Map> fkjjfylist = new ArrayList<Map>();
 		List<Map> fkqtlist = new ArrayList<Map>();
-		List<DmZjrbXm> zirbdmList = manager.getZjrbXmList();
+		List<DmZjrbXm> zirbdmList = dao.getZjrbXmList();
 		for(int j=0;j<zirbdmList.size();j++){
 			DmZjrbXm zjrbxm = zirbdmList.get(j);
         	Map<String, String> map = new HashMap<String, String>();
@@ -567,7 +662,7 @@ public class JsdService {
 	}
 	public String initZjrbJe() {
 		Map<String, String> mapResult = new HashMap<String, String>();
-		ZjrbVo zjrb = manager.getZjrbLast();
+		ZjrbVo zjrb = dao.getZjrbLast();
 		if(zjrb==null){
 			mapResult.put("QCJE1", String.valueOf(0));
 			mapResult.put("QCJE2", String.valueOf(0));
@@ -586,12 +681,16 @@ public class JsdService {
 	    return result;
 	}
 	public String saveZjrb(Map<String, String> map) {
-		ZjrbVo zjrb = manager.getZjrb(new Date());
+		ZjrbVo zjrb = dao.getZjrb(DateUtil.dateToString(new Date()));
 		if(zjrb==null){
 			zjrb = new ZjrbVo();
 		}
 		else{
-			manager.deleteZjrbMx(zjrb.getId());
+			List<ZjrbMxVo> list =  dao.getZjrbXmList(zjrb.getId());
+			for(int i = 0;i<list.size();i++){
+				ZjrbMxVo xm = list.get(i);
+				dao.delete(xm);
+			}
 		}
 		String data = map.get("data").replaceAll("\\r" , "").replaceAll("\\t", "").replaceAll("\\n", "");
 		zjrb.setContent(data);
@@ -609,11 +708,10 @@ public class JsdService {
 		try {
 			zjrb.setTbrq(DateUtil.stringToDate(DateUtil.dateToString(new Date())));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error";
 		}
-		manager.saveZjrb(zjrb);
+		dao.save(zjrb);
 		String array = map.get("array");
 		List<Map<String, Object>> list = JsonUtil.parseJSON2List("["+array+"]");
 		for(int n = 0;n<list.size();n++){
@@ -625,7 +723,7 @@ public class JsdService {
 			vo.setLeibie(mapMx.get("type").toString());
 			vo.setZjrb_id(zjrb.getId());
 			vo.setZjrbxmdm(mapMx.get("zjrbxmdm").toString());
-			manager.save(vo);
+			dao.save(vo);
 		}
 		return "success";
 	}
@@ -636,7 +734,7 @@ public class JsdService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		ZjrbVo zjrb = manager.getZjrb(date);
+		ZjrbVo zjrb = dao.getZjrb(DateUtil.dateToString(date));
 		if(zjrb==null){
 			return "没有数据";
 		}
@@ -644,5 +742,29 @@ public class JsdService {
 	}
 	public String searchZjrb(String rqq, String rqz) {
 		return "zjrbhj";
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public String searchSkdFkdListForZjrb(String xmdm) {
+		List<Map> listMap = new ArrayList<Map>();
+		List<ShouQuanDo> sqList = dao.getFktzdList(xmdm);
+		for(int i=0;i<sqList.size();i++){
+			ShouQuanDo sq = sqList.get(i);
+        	Map<String, String> map = new HashMap<String, String>();
+            map.put("ID", "0"+sq.getId());
+            map.put("JE", Double.toString(sq.getSqje()));
+		    listMap.add(map);
+		}
+		List<ReceivableNoticeCard> sktzdList = dao.getSktzdList(xmdm);
+		for(int i=0;i<sktzdList.size();i++){
+			ReceivableNoticeCard sktzd = sktzdList.get(i);
+			Map<String, String> map = new HashMap<String, String>();
+            map.put("ID", "1"+sktzd.getId());
+            double je = sktzd.getFarmerCash()+sktzd.getMeteringCash()+sktzd.getOtherCash();
+            map.put("JE", Double.toString(je));
+		    listMap.add(map);
+		}
+		String result = JsonUtil.BuildJson(listMap);
+        return result;
 	}
 }

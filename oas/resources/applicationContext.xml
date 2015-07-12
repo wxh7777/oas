@@ -85,9 +85,6 @@
 		<property name="service" ref="JsdService"></property>
 	</bean>
 	<bean id="JsdService" class="com.pfkj.oas.service.JsdService" autowire="byName" scope="prototype">
-		<property name="manager" ref="JsdManager"></property>
-	</bean>
-	<bean id="JsdManager" class="com.pfkj.oas.manager.JsdManager" autowire="byName" scope="prototype">
 		<property name="dao" ref="JsdDao"></property>
 	</bean>
 	<bean id="JsdDao" parent="baseDao" class="com.pfkj.oas.dao.JsdDaoImpl" autowire="byName" scope="prototype">

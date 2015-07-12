@@ -25,7 +25,7 @@
        			<th id="SWBSHR">商务部审核人</th>
        		</tr>
        	</thead>
-       	<tbody></tbody>
+       	<tbody class="text-c"></tbody>
 	</table>
 </div>
 <jsp:include page="/footer.jsp" flush="true"></jsp:include>
