@@ -46,7 +46,7 @@ function upload(){
 			 	type:'post',
 		        url:'file-uploadHthb.action',
 		        success: function(data){  
-		        	//layer.msg("上传成功");
+		        	//layer.msg("上传成功",2,{type:1});
                     $( "#info")[0].textContent="上传成功，核备编号为"+data;
 		        	$( "#filesForm").resetForm();  
                 },  

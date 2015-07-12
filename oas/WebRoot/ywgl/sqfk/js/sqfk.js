@@ -93,7 +93,7 @@ function jsye(){
 function qrsq(){
 	var bcsqje = document.getElementById("bcsqje").value;
    var result = getMsg("jsdbh="+encodeURI(encodeURI(jsdbh))+"&sqje="+bcsqje,"jsdgl-qrsq.action");
-   layer.msg(result);
+   layer.msg(result,2,{type:1});
 }
 
 function doYsq(){
@@ -102,5 +102,5 @@ function doYsq(){
 	var ysqly = document.getElementById("ysqly").value;
 	var str = "htbh="+encodeURI(encodeURI(htbh))+"&yusqje="+yusqje+"&ysqly="+encodeURI(encodeURI(ysqly));
 	var result = getMsg(str,"jsdgl-ysq.action");
-	layer.msg(result);
+	layer.msg(result,2,{type:1});
 }

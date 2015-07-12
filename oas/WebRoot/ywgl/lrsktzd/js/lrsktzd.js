@@ -10,7 +10,7 @@ function doReceivableNoticeCardSubmit(){
 		    url:'recoverfund-doReceivableNoticeCardSubmit.action',
 	        success: function(data){ 
 	        	if(data>0){
-	        		layer.msg("保存成功");
+	        		layer.msg("保存成功",2,{type:1});
 		        	$( "#receivalbeNoticeCardForm").resetForm(); 
 	        	}else{
 	        		layer.msg("保存失败，请重新提交");

@@ -1,4 +1,4 @@
-function init(){
+function init(abtype){
 	isLogin();
 	var str = getMsg("","jsdgl-getHthbList.action");
 	var data = eval("["+str+"]");
@@ -11,8 +11,8 @@ function init(){
 	                { "data": "HTHBBH" },
 	                { "data": "SCWJSJ" },
 	                { "data": "HTWJLB" },
-	                { "data": null ,"defaultContent": uploadForm},
-	                { "data": null ,"defaultContent": btnUpload}
+	                { "data": abtype=="A"?"GCBSHYJWD":"SWBSHYJWD"},
+	                { "data": null }
 	                
 	            ],
 	    oLanguage: {
@@ -28,9 +28,19 @@ function init(){
 		            	"sLast": "尾页"
 		            	}
 	            	},
-	    aoColumnDefs: [ 
-		                { "sClass":"dpass", "bSearchable" :false, "aTargets":[0] }
-		             ] 
+	    columnDefs: [
+	                 { "sClass":"dpass", "bSearchable" :false, "aTargets":[0] },
+	                 {
+			            "render": function(data, type, row) {
+	                		var tmp = data;
+	                		if(tmp==null||tmp=""){
+	                			//tmp = uploadForm;
+	                			//row[4] = btnUpload;
+	                		}
+		                    return tmp;
+			            },
+			            "targets": 3
+			        }]
 	});
 
 	$("a[name=file]").on("click","",function(){
@@ -60,7 +70,7 @@ function uploadShyj(obj1,str){
 			 	type:"post",
 		        url:"file-uploadHthbYj.action?"+str,
 		        success: function(data){ 
-		        layer.msg("上传成功");
+		        layer.msg("上传成功",2,{type:1});
              },  
              error: function(XmlHttpRequest, textStatus, errorThrown){  
              	layer.msg("上传失败，请重新上传");  

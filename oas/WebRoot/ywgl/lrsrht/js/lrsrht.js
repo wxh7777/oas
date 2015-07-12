@@ -42,7 +42,7 @@ function uploadIncomeContract(){
 		    url:'file-uploadIncomeContract.action',
 	        success: function(data){ 
 	        	if(data>0){
-	        		layer.msg("上传成功");
+	        		layer.msg("上传成功",2,{type:1});
 	        		//延迟1s执行
 	        		setTimeout(layerClose,1000);
 	        	}else{

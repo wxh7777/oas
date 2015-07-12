@@ -77,5 +77,5 @@ function initTable(dt){
 
 function shsq(id,istg){
 	var result=getMsg("sqid="+id+"&istg="+istg,"jsdgl-sqsh.action");
-	layer.msg(result);
+	layer.msg(result,2,{type:1});
 }

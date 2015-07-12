@@ -91,7 +91,8 @@ function initTable(dt){
 //生成付款通知单
 function scfktzd(sqid){
 	var result = getMsg("sqid="+sqid,"jsdgl-scfktzd.action");
-	layer.msg(result);
+	
+	layer.msg(result,2,{type:1});
 }
 
 function printFktzd(sqid){

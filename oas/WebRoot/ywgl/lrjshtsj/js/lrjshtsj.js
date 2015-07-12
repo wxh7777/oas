@@ -51,7 +51,7 @@ function doSave(){
 			 type:"post",
 		     url:"jsdgl-saveHtsj.action?table="+tableData+"&xmmc="+encodeURI(encodeURI(xmmc)),
 		     success: function(data){ 
-		    	layer.msg("保存成功");
+		    	layer.msg("保存成功",2,{type:1});
 		        location.replace(location.href);
 	         },  
 	         error: function(XmlHttpRequest, textStatus, errorThrown){  
@@ -117,7 +117,7 @@ function uploadZymxFile(){
 	     success: function(data){ 
 	    	 tableData = data;
 	    	 initHtmx(data);
-	    	 layer.msg("上传成功");
+	    	 layer.msg("上传成功",2,{type:1});
          },  
          error: function(XmlHttpRequest, textStatus, errorThrown){  
          	layer.msg("上传失败，请重新上传");  

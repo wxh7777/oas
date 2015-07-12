@@ -8,7 +8,6 @@ function init(){
 	for(var i=0;i < json.length;i ++){
 		$("#xmdm").append("<option value='"+$(json[i]).attr('ID')+"'>"+$(json[i]).attr('NAME')+"</option>"); //为Select追加一个Option(下拉项) 
     }
-
     getHtList();
 
     $("#rq")[0].value = curDateTime();
@@ -67,7 +66,7 @@ function uploadJcmxFile(){
 	     success: function(data){ 
 	    	 tableData = data;
 	    	 initJcmx(data);
-	    	 layer.msg("上传成功");
+	    	 layer.msg("上传成功",2,{type:1});
          },  
          error: function(XmlHttpRequest, textStatus, errorThrown){  
          	layer.msg("上传失败，请重新上传");  

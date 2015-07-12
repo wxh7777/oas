@@ -1,24 +1,90 @@
 var id= 0;
 var zjrbXmList;
+var idinput = 0;
+var dataArray = [{id:"回收",text:"123"},{id:"2342",text:"2342"},{id:"自定义",text:""}];
 function init(){
     isLogin();
+    var str = getMsg("","qx-getProjectlist.action");
+	var json = eval("["+str+"]")[0].data;
+	for(var i=0;i < json.length;i ++){
+		$("#xmdm").append("<option value='"+$(json[i]).attr('ID')+"'>"+$(json[i]).attr('NAME')+"</option>"); //为Select追加一个Option(下拉项) 
+    }
+    
     var str = getMsg("","jsdgl-initZjrbTable.action");
     zjrbXmList = eval(eval(str)[0].TABLE)[0];
 	initZjrbJe(eval(str)[0].ZJRBJE);
 	initZjrbTable(eval(str)[0].TABLE);
     $.fn.editable.defaults.mode = 'inline';
-    $('.edit').editable({
+    var dataTmp = dataArray;
+	$('.editSelect').editable({
     	showbuttons:false,
     	onblur:'submit',
-        type: 'text',
+        type: 'select2',
         pk: 1,
-        title: 'Enter username',
         emptytext:'',
-        inputclass:'input-text',
+        inputclass:' select select-box ',
+        source:dataTmp,
+        select2:{
+        	minimumResultsForSearch: Infinity,
+        	templateResult :formatState,
+        	width:'100%'
+        },
         success:function(response, newValue) {
-        	excuteTable(this,newValue);
+        	if(newValue=="自定义"){
+        		$(this).editable('hide');
+        		$(this).html("");
+        		$(this).append("<label id='tmp"+idinput+"'></label>");
+        		$("#tmp"+idinput).editable({
+        			showbuttons:false,
+        	    	onblur:'submit',
+        	        type: 'text',
+        	        emptytext:'',
+        	        inputclass:' input-text ',
+        	        highlight:false,
+        	        success:function(response, newValue){
+        	        	excuteTable(this.parentNode,newValue);
+        	        	$(this.parentNode).removeClass('editable-empty');
+        	        	$(this.parentNode).addClass('editable-unsaved'); 
+        	        	$(this.parentNode).html(newValue);
+        	        }
+        		});
+        		$("#tmp"+idinput).editable('show');
+        		idinput ++;
+        		
+        	}
+        	else{
+            	excuteTable(this,findText(newValue));
+        	}
         }
     });
+	$(".editInput").editable({
+		showbuttons:false,
+    	onblur:'submit',
+        type: 'text',
+        emptytext:'',
+        inputclass:' input-text ',
+        highlight:false,
+        success:function(response, newValue){
+        	excuteTable(this,newValue);
+        }
+	});
+}
+function editableObjInput(obj){
+	
+}
+function findText(value){
+	for(var i =0 ;i<dataArray.length;i++){
+		if(dataArray[i].id==value){
+			return dataArray[i].text;
+		}
+	}
+	return "0";
+}
+function formatState(rs) {  
+	if(rs.id=="自定义"){
+		return rs.id;
+	}else
+		return rs.id+":"+rs.text; 
 }
 function getZjrbArray(){
 	var hkgcsr = zjrbXmList.HKGCSR;
@@ -134,6 +200,7 @@ function getArray(data,type){
 
 function doSave(){
 	var tableStr = document.getElementById("tableJg").innerHTML;
+	var xmdm = $("#xmdm").find("option:selected").val(); 
 	var qmye1 = $("#qmye1")[0].innerHTML;
 	var qmye2 = $("#qmye2")[0].innerHTML;
 	var qmye3 = $("#qmye3")[0].innerHTML;
@@ -146,8 +213,10 @@ function doSave(){
 	urlData += "&qmye4="+qmye4;
 	urlData += "&qmye="+qmye;
 	urlData += "&array="+getZjrbArray();
+	urlData += "&xmdm="+xmdm;
+	
 	var str = getMsg(urlData,"jsdgl-saveZjrb.action");
-	layer.msg(str);
+	layer.msg(str,2,{type:1});
 	
 }
 
@@ -185,10 +254,10 @@ function initFirst(n,data,type){
 			$("#"+data[i].ZJRBXMDM).append("<td rowspan=\""+nData+"\">"+str[1]+"</td>");
 		}
 		$("#"+data[i].ZJRBXMDM).append("<td>"+data[i].ZJRBXMMC+"</td>");
-		$("#"+data[i].ZJRBXMDM).append("<td class=\"edit num\" name=\""+type+"1\"></td>");
-		$("#"+data[i].ZJRBXMDM).append("<td class=\"edit num\" name=\""+type+"2\"></td>");
-		$("#"+data[i].ZJRBXMDM).append("<td class=\"edit num\" name=\""+type+"3\"></td>");
-		$("#"+data[i].ZJRBXMDM).append("<td class=\"edit num\" name=\""+type+"4\"></td>");
+		$("#"+data[i].ZJRBXMDM).append("<td class=\"editSelect num\" name=\""+type+"1\"></td>");
+		$("#"+data[i].ZJRBXMDM).append("<td class=\"editSelect num\" name=\""+type+"2\"></td>");
+		$("#"+data[i].ZJRBXMDM).append("<td class=\"editSelect num\" name=\""+type+"3\"></td>");
+		$("#"+data[i].ZJRBXMDM).append("<td class=\"editSelect num\" name=\""+type+"4\"></td>");
 		$("#"+data[i].ZJRBXMDM).append("<td name=\"HJL\">0</td>");
 	}
 	initXj(type);
@@ -202,10 +271,10 @@ function initNext(data,type){
 			$("#"+data[i].ZJRBXMDM).append("<td rowspan=\""+nData+"\">"+str[1]+"</td>");
 		}
 		$("#"+data[i].ZJRBXMDM).append("<td>"+data[i].ZJRBXMMC+"</td>");
-		$("#"+data[i].ZJRBXMDM).append("<td class=\"edit num\" name=\""+type+"1\"></td>");
-		$("#"+data[i].ZJRBXMDM).append("<td class=\"edit num\" name=\""+type+"2\"></td>");
-		$("#"+data[i].ZJRBXMDM).append("<td class=\"edit num\" name=\""+type+"3\"></td>");
-		$("#"+data[i].ZJRBXMDM).append("<td class=\"edit num\" name=\""+type+"4\"></td>");
+		$("#"+data[i].ZJRBXMDM).append("<td class=\"editSelect num\" name=\""+type+"1\"></td>");
+		$("#"+data[i].ZJRBXMDM).append("<td class=\"editSelect num\" name=\""+type+"2\"></td>");
+		$("#"+data[i].ZJRBXMDM).append("<td class=\"editSelect num\" name=\""+type+"3\"></td>");
+		$("#"+data[i].ZJRBXMDM).append("<td class=\"editSelect num\" name=\""+type+"4\"></td>");
 		$("#"+data[i].ZJRBXMDM).append("<td name=\"HJL\">0</td>");
 	}
 	initXj(type);
@@ -235,21 +304,21 @@ function initHj(type){
 function initHk(){
 	$("#zjrbBody").append("<tr id=\"hk\">");
 	$("#hk").append("<td colspan=\"3\">银行存款</td>");
-	$("#hk").append("<td class=\"edit num\" id=\"hk1\">0</td>");
+	$("#hk").append("<td class=\"editInput num\" id=\"hk1\"></td>");
 	$("#hk").append("<td>现金转入</td>");
-	$("#hk").append("<td class=\"edit num\" id=\"hk2\">0</td>");
+	$("#hk").append("<td class=\"editInput num\" id=\"hk2\"></td>");
 	$("#hk").append("<td>银行卡转入</td>");
-	$("#hk").append("<td class=\"edit num\" id=\"hk3\">0</td>");
+	$("#hk").append("<td class=\"editInput num\" id=\"hk3\"></td>");
 }
 
 function initFk(){
 	$("#zjrbBody").append("<tr id=\"fk\">");
 	$("#fk").append("<td colspan=\"3\" >银行存款</td>");
-	$("#fk").append("<td class=\"edit num\" id=\"fk1\">0</td>");
+	$("#fk").append("<td class=\"editInput num\" id=\"fk1\"></td>");
 	$("#fk").append("<td>现金转出</td>");
-	$("#fk").append("<td class=\"edit num\" id=\"fk2\">0</td>");
+	$("#fk").append("<td class=\"editInput num\" id=\"fk2\"></td>");
 	$("#fk").append("<td>银行卡转出</td>");
-	$("#fk").append("<td class=\"edit num\" id=\"fk3\">0</td>");
+	$("#fk").append("<td class=\"editInput num\" id=\"fk3\"></td>");
 }
 
 function excuteTable(obj,newValue){
@@ -318,4 +387,13 @@ function excuteTable(obj,newValue){
             });
             $(tr).find("td[name='HJL']").html(sum);
         });
+}
+
+function getFkdList(){
+	var str = getMsg("","jsdgl-getFkdList.action");
+    
+}
+
+function getSkdList(){
+	
 }

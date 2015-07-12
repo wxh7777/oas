@@ -366,7 +366,6 @@ public class JsdService {
             map.put("YSQWSHJE", String.valueOf(ysqwshje));
             map.put("JSRQ", DateUtil.dateTo10String(jsd.getTbsj()));
 		    listMap.add(map);
-		
 		}
         String result = JsonUtil.BuildJson(listMap);
         return result;

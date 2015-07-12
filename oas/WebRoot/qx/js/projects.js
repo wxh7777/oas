@@ -106,12 +106,12 @@ function saveProject(){
         async: false,
         success: function(request) {
         	parent.location.replace(parent.location.href);
-        	parent.layer.msg('保存成功', {icon: 2});
+        	parent.layer.msg('保存成功',2,{type:1});
         	var index = parent.layer.getFrameIndex(window.name);
         	parent.layer.close(index);
         },
         error: function(data) {
-        	layer.msg('保存失败', {icon: 1});
+        	layer.msg('保存失败');
         }
     });    
 }

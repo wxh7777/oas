@@ -7,11 +7,35 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	<title>录入收入合同</title>
+	<link href="<%=request.getContextPath() %>/public/select2/css/select2.css" rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath() %>/public/select2/css/select2-bootstrap.css" rel="stylesheet" type="text/css" />
 	<jsp:include page="/head.jsp" flush="true"></jsp:include>
+	
+	<style>
+	.select2-container{
+		width:100%;
+	}
+	.control-group{
+		width:100%;
+	}
+	.editable-input{
+		width:100%;
+	}
+	.editable-container.editable-inline{
+		width:100%;
+	}
+	</style>
 </head>
 <body onLoad="init()"> 
 <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span> 录入资金日报 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav> 
 <div class="pd-20" style="width:90%;padding-left:5%">
+	<div class="row">
+		<div calss="col-3" style="float:left">选择项目：</div>
+		<div calss="col-3" style="float:left">
+			<select class="select select-box" id="xmdm" name="xmid"></select>
+		</div>
+		<div calss="col-6" style="float:left"></div>
+	</div>
 	<div class="row">
 		<div calss="col-3" style="float:left">填报单位：</div>
 		<div calss="col-3" style="float:left"></div>
@@ -72,6 +96,6 @@
 	</div>
 </div>
 <jsp:include page="/footer.jsp" flush="true"></jsp:include>
-<script src="./js/lrzjrb.js" type="text/javascript" charset="utf-8" ></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/public/select2/js/select2.full.js"></script>  <script src="./js/lrzjrb.js" type="text/javascript" charset="utf-8" ></script>
 </body>
 </html>
