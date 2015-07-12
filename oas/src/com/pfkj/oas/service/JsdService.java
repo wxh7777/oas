@@ -760,7 +760,8 @@ public class JsdService {
 			ReceivableNoticeCard sktzd = sktzdList.get(i);
 			Map<String, String> map = new HashMap<String, String>();
             map.put("ID", "1"+sktzd.getId());
-            double je = sktzd.getFarmerCash()+sktzd.getMeteringCash()+sktzd.getOtherCash();
+            //double je = sktzd.get+sktzd.getMeteringCash()+sktzd.getOtherCash();
+            double je = 1;
             map.put("JE", Double.toString(je));
 		    listMap.add(map);
 		}
