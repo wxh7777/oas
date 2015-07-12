@@ -19,8 +19,6 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/public/lib/jquery.form.min.js"></script> 
 <script type="text/javascript" src="<%=request.getContextPath() %>/public/js/jquery.json2xml.js"></script> 
 <script type="text/javascript" src="<%=request.getContextPath() %>/public/js/jquery.xml2json.js"></script> 
-  
-<script type="text/javascript" src="<%=request.getContextPath() %>/public/js/dataTables.bootstrap.js"></script>   
 <script type="text/javascript" src="<%=request.getContextPath() %>/public/lib/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/public/js/bootstrap-multiselect.js"></script>
 

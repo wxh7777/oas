@@ -20,9 +20,22 @@ function init(){
 
 
 function doSearch(){
+	var urlParams = {					
+			"xmmc": $('#xmmc').find("option:selected").val(), //项目名称
+			"htlx": $('#htlx').find("option:selected").val(), //合同类型
+			"htmc": $('#htmc').val(), //合同名称
+			"htbh": $('#htbh').val(), //合同编号
+			"sjq":	$('#sjq').val(), //时间起
+			"sjz": $('#sjz').val(), //时间止
+			"jbr":	$('#jbr').val(), //经办人
+			"gys":	$('#gys').val(), //供应商
+			"kzr":	$('#kzr').val() //控制人
+	};
+	var filteredParms = extrackParmsValue(urlParams);
 	var options = {  
 			 type:"post",
 		     url:"jsdgl-searchHtsj.action",
+		     data: filteredParms,
 		     success: function(data){ 
 		    	initTable(data);
 	         },  
