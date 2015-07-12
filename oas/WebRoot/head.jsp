@@ -17,7 +17,7 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/public/lib/respond.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/public/lib/PIE_IE678.js"></script>
 <![endif]-->
-<link href="<%=request.getContextPath() %>/public/lib/datePicher/datePicker.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/public/lib/datePicker/datePicker.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath() %>/public/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath() %>/public/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <!--[if IE 7]>

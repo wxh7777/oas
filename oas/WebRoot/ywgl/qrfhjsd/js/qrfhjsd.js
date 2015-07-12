@@ -20,10 +20,20 @@ function getHtList(){
 }
 //保存按钮
 function doSearch(){
-	var xmdm = $("#xmdm").find("option:selected").val(); 
+	var urlParams = {
+			"xmdm": $("#xmdm").find("option:selected").val(), //项目名称
+			"selHtbh": $("#selHtbh").find("option:selected").val(), //合同编号
+			"rq":	$('#rq').val(), //日期,
+			"skdw": $('#skdw').val(), //收款单位
+			"jbr":	$('#jbr').val(), //经办人
+			"gys":	$('#gys').val(), //供应商
+			"kzr":	$('#kzr').val() //控制人
+	};
+	var filteredParms = extrackParmsValue(urlParams);
 	var options = {  
 			 type:"post",
-		     url:"jsdgl-searchJsd.action?xmdm="+xmdm,
+		     url:"jsdgl-searchJsd.action",
+		     data: filteredParms,
 		     success: function(data){ 
 		    	initTable(data);
 	         },  
