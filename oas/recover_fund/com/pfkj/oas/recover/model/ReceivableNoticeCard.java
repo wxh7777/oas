@@ -32,41 +32,93 @@ public class ReceivableNoticeCard {
 	@Column(name = "XIANGMU_ID")
 	private String xiangmuId;
 	
-	//业主名称
-	@Column(name = "OWNER_NAME")
-	private String ownerName;
-	
-	//时间
-	@Column(name = "TIME")
-	private Date time;
-	
-	//工程类别
-	@Column(name = "PROJECT_TYPE")
-	private String projectType;
+	//合同金额
+	@Column(name = "CONTRACT_MONEY")
+	private double contractMoney;
 
 	//计量期数
 	@Column(name = "METERING_NUM")
 	private int meteringNum;
 	
-	//计量日期
-	@Column(name = "METERING_TIME")
-	private Date meteringTime;
+	//累计收款
+	@Column(name = "TOTAL_RECEIVABLES")
+	private double totalReceivables;
+	
+	//应收计量款
+	@Column(name = "MUST_METERING_MONEY")
+	private double mustMeteringMoney;
+	
+	//累计开票
+	@Column(name = "TOTAL_BILLING")
+	private double totalBilling;
+	
+	//应收其他款
+	@Column(name = "MUST_OTHER_MONEY")
+	private double mustOtherMoney;
+	
+	//应收款合计
+	@Column(name = "MUST_TOTAL_MONEY")
+	private double mustTotalMoney;
+	
+	//本次收计量款合计
+	@Column(name = "TOTAL_METERING_MONEY")
+	private double totalMeteringMoney;
+	
+	//应收工程款合计
+	@Column(name = "MUST_TOTAL_PROJECT_MONEY")
+	private double mustTotalProjectMoney;
+	
+	//开工预付款
+	@Column(name = "ADVANCE_MONEY")
+	private double advanceMoney;
 	
 	//计量款
-	@Column(name = "METERING_CASH")
-	private double meteringCash;
+	@Column(name = "METERING_MONEY")
+	private double meteringMoney;
+	
+	//右边计量款
+	@Column(name = "PROJECT_METERING_MONEY")
+	private double projectMeteringMoney;
+	
+	//保留金
+	@Column(name = "HOLD_MONEY")
+	private double holdMoney;
+	
+	//右边保留金
+	@Column(name = "PROJECT_HOLD_MONEY")
+	private double projectHoldMoney;
 	
 	//质保金
-	@Column(name = "WARRANTY_CASH")
-	private double warrantyCash;
+	@Column(name = "WARRANTY_MONEY")
+	private double warrantyMoney;
+	
+	//右边质保金
+	@Column(name = "PROJECT_WARRANTY_MONEY")
+	private double projectWarrantyMoney;
 	
 	//农民工工资保证金
-	@Column(name = "FARMER_CASH")
-	private double farmerCash;
+	@Column(name = "FARMER_MONEY")
+	private double farmerMoney;
+	
+	//右边农民工工资保证金
+	@Column(name = "PROJECT_FARMER_MONEY")
+	private double projectFarmerMoney;
 	
 	//其他扣款
-	@Column(name = "OTHER_CASH")
-	private double otherCash;
+	@Column(name = "OTHER_MONEY")
+	private double otherMoney;
+		
+	//右边其他扣款
+	@Column(name = "PROJECT_OTHER_MONEY")
+	private double projectOtherMoney;
+	
+	//已收开工预付款
+	@Column(name = "PROJECt_ADVANCE_MONEY")
+	private double projectAdvanceMoney;
+	
+	//备注
+	@Column(name = "MEMO")
+	private String memo;
 	
 	//状态
 	@Column(name = "STATUS")
@@ -79,7 +131,7 @@ public class ReceivableNoticeCard {
 	//创建时间
 	@Column(name = "CREATE_TIME")
 	private Date createTime;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -96,28 +148,12 @@ public class ReceivableNoticeCard {
 		this.xiangmuId = xiangmuId;
 	}
 
-	public String getOwnerName() {
-		return ownerName;
+	public double getContractMoney() {
+		return contractMoney;
 	}
 
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
-
-	public String getProjectType() {
-		return projectType;
-	}
-
-	public void setProjectType(String projectType) {
-		this.projectType = projectType;
+	public void setContractMoney(double contractMoney) {
+		this.contractMoney = contractMoney;
 	}
 
 	public int getMeteringNum() {
@@ -128,44 +164,164 @@ public class ReceivableNoticeCard {
 		this.meteringNum = meteringNum;
 	}
 
-	public Date getMeteringTime() {
-		return meteringTime;
+	public double getTotalReceivables() {
+		return totalReceivables;
 	}
 
-	public void setMeteringTime(Date meteringTime) {
-		this.meteringTime = meteringTime;
+	public void setTotalReceivables(double totalReceivables) {
+		this.totalReceivables = totalReceivables;
 	}
 
-	public double getMeteringCash() {
-		return meteringCash;
+	public double getMustMeteringMoney() {
+		return mustMeteringMoney;
 	}
 
-	public void setMeteringCash(double meteringCash) {
-		this.meteringCash = meteringCash;
+	public void setMustMeteringMoney(double mustMeteringMoney) {
+		this.mustMeteringMoney = mustMeteringMoney;
 	}
 
-	public double getWarrantyCash() {
-		return warrantyCash;
+	public double getTotalBilling() {
+		return totalBilling;
 	}
 
-	public void setWarrantyCash(double warrantyCash) {
-		this.warrantyCash = warrantyCash;
+	public void setTotalBilling(double totalBilling) {
+		this.totalBilling = totalBilling;
 	}
 
-	public double getFarmerCash() {
-		return farmerCash;
+	public double getMustOtherMoney() {
+		return mustOtherMoney;
 	}
 
-	public void setFarmerCash(double farmerCash) {
-		this.farmerCash = farmerCash;
+	public void setMustOtherMoney(double mustOtherMoney) {
+		this.mustOtherMoney = mustOtherMoney;
 	}
 
-	public double getOtherCash() {
-		return otherCash;
+	public double getMustTotalMoney() {
+		return mustTotalMoney;
 	}
 
-	public void setOtherCash(double otherCash) {
-		this.otherCash = otherCash;
+	public void setMustTotalMoney(double mustTotalMoney) {
+		this.mustTotalMoney = mustTotalMoney;
+	}
+
+	public double getTotalMeteringMoney() {
+		return totalMeteringMoney;
+	}
+
+	public void setTotalMeteringMoney(double totalMeteringMoney) {
+		this.totalMeteringMoney = totalMeteringMoney;
+	}
+
+	public double getMustTotalProjectMoney() {
+		return mustTotalProjectMoney;
+	}
+
+	public void setMustTotalProjectMoney(double mustTotalProjectMoney) {
+		this.mustTotalProjectMoney = mustTotalProjectMoney;
+	}
+
+	public double getAdvanceMoney() {
+		return advanceMoney;
+	}
+
+	public void setAdvanceMoney(double advanceMoney) {
+		this.advanceMoney = advanceMoney;
+	}
+
+	public double getMeteringMoney() {
+		return meteringMoney;
+	}
+
+	public void setMeteringMoney(double meteringMoney) {
+		this.meteringMoney = meteringMoney;
+	}
+
+	public double getProjectMeteringMoney() {
+		return projectMeteringMoney;
+	}
+
+	public void setProjectMeteringMoney(double projectMeteringMoney) {
+		this.projectMeteringMoney = projectMeteringMoney;
+	}
+
+	public double getHoldMoney() {
+		return holdMoney;
+	}
+
+	public void setHoldMoney(double holdMoney) {
+		this.holdMoney = holdMoney;
+	}
+
+	public double getProjectHoldMoney() {
+		return projectHoldMoney;
+	}
+
+	public void setProjectHoldMoney(double projectHoldMoney) {
+		this.projectHoldMoney = projectHoldMoney;
+	}
+
+	public double getWarrantyMoney() {
+		return warrantyMoney;
+	}
+
+	public void setWarrantyMoney(double warrantyMoney) {
+		this.warrantyMoney = warrantyMoney;
+	}
+
+	public double getProjectWarrantyMoney() {
+		return projectWarrantyMoney;
+	}
+
+	public void setProjectWarrantyMoney(double projectWarrantyMoney) {
+		this.projectWarrantyMoney = projectWarrantyMoney;
+	}
+
+	public double getFarmerMoney() {
+		return farmerMoney;
+	}
+
+	public void setFarmerMoney(double farmerMoney) {
+		this.farmerMoney = farmerMoney;
+	}
+
+	public double getProjectFarmerMoney() {
+		return projectFarmerMoney;
+	}
+
+	public void setProjectFarmerMoney(double projectFarmerMoney) {
+		this.projectFarmerMoney = projectFarmerMoney;
+	}
+
+	public double getOtherMoney() {
+		return otherMoney;
+	}
+
+	public void setOtherMoney(double otherMoney) {
+		this.otherMoney = otherMoney;
+	}
+
+	public double getProjectOtherMoney() {
+		return projectOtherMoney;
+	}
+
+	public void setProjectOtherMoney(double projectOtherMoney) {
+		this.projectOtherMoney = projectOtherMoney;
+	}
+
+	public double getProjectAdvanceMoney() {
+		return projectAdvanceMoney;
+	}
+
+	public void setProjectAdvanceMoney(double projectAdvanceMoney) {
+		this.projectAdvanceMoney = projectAdvanceMoney;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 
 	public int getStatus() {
@@ -195,13 +351,24 @@ public class ReceivableNoticeCard {
 	@Override
 	public String toString() {
 		return "ReceivableNoticeCard [id=" + id + ", xiangmuId=" + xiangmuId
-				+ ", ownerName=" + ownerName + ", time=" + time
-				+ ", projectType=" + projectType + ", meteringNum="
-				+ meteringNum + ", meteringTime=" + meteringTime
-				+ ", meteringCash=" + meteringCash + ", warrantyCash="
-				+ warrantyCash + ", farmerCash=" + farmerCash + ", otherCash="
-				+ otherCash + ", status=" + status + ", userId=" + userId
-				+ ", createTime=" + createTime + "]";
+				+ ", contractMoney=" + contractMoney + ", meteringNum="
+				+ meteringNum + ", totalReceivables=" + totalReceivables
+				+ ", mustMeteringMoney=" + mustMeteringMoney
+				+ ", totalBilling=" + totalBilling + ", mustOtherMoney="
+				+ mustOtherMoney + ", mustTotalMoney=" + mustTotalMoney
+				+ ", totalMeteringMoney=" + totalMeteringMoney
+				+ ", mustTotalProjectMoney=" + mustTotalProjectMoney
+				+ ", advanceMoney=" + advanceMoney + ", meteringMoney="
+				+ meteringMoney + ", projectMeteringMoney="
+				+ projectMeteringMoney + ", holdMoney=" + holdMoney
+				+ ", projectHoldMoney=" + projectHoldMoney + ", warrantyMoney="
+				+ warrantyMoney + ", projectWarrantyMoney="
+				+ projectWarrantyMoney + ", farmerMoney=" + farmerMoney
+				+ ", projectFarmerMoney=" + projectFarmerMoney
+				+ ", otherMoney=" + otherMoney + ", projectOtherMoney="
+				+ projectOtherMoney + ", projectAdvanceMoney="
+				+ projectAdvanceMoney + ", memo=" + memo + ", status=" + status
+				+ ", userId=" + userId + ", createTime=" + createTime + "]";
 	}
 	
 }
