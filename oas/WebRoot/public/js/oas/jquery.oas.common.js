@@ -484,3 +484,13 @@ function curDateTime(){
         curDateTime = curDateTime +"-0"+date;  
     return curDateTime;  
 }
+
+function extrackParmsValue(urlParams) {
+	var res ={};
+	for(param in urlParams) {
+		if(urlParams[param]) {
+			 res[param] = urlParams[param];
+		}
+	}
+	return res;
+}
