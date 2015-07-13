@@ -9,6 +9,11 @@
 	<title>录入收款通知单</title>
 	<jsp:include page="/head.jsp" flush="true"></jsp:include>
 </head>
+<style>
+#receivalbeNoticeCardListTable tbody tr:hover{
+	cursor: pointer;
+}
+</style>
 <body onLoad="init()"> 
 <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span> 录入收款通知单 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav> 
 <div class="pd-20">
@@ -24,7 +29,7 @@
    		</span>
  	</div>
  	<div  class="container">
-	  	<table id="receivalbeNoticeCardListTable" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
+	  	<table id="receivalbeNoticeCardListTable" class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" width="100%">
 			<thead class="text-c">
 				<tr>
 			        <th width="100">ID</th>

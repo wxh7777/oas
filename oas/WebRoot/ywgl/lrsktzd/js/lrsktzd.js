@@ -37,11 +37,21 @@ function initReceivalbeNoticeCardListTable(){
 		            	}
 	      }
 	});
+	
+	$('#receivalbeNoticeCardListTable tbody').on('click', 'tr', function () {
+        var id = $('td', this).eq(0).text();
+        viewReceivalbeNoticeCard(id);
+    } );
 }
 
 //打开收款通知单
 function addReceivalbeNoticeCard(){
 	layerShow("800","","添加收款通知单","lrsktzd-add.jsp?type=add");
+}
+
+//查看
+function viewReceivalbeNoticeCard(id){
+	layerShow("800","","查看收款通知单","lrsktzd-view.jsp?type=view");
 }
 
 //提交收款通知单
