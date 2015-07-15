@@ -305,7 +305,7 @@ public class FileAction extends BaseAction {
     
     public InputStream getDownloadFile() throws Exception  
     {  
-    	return new FileInputStream(this.getSavePath() + getDwChineseFileName());
+    	return new FileInputStream(this.getSavePath() + getDwChineseName());
     }  
     public String download() throws UnsupportedEncodingException{
     	return SUCCESS;
@@ -313,16 +313,25 @@ public class FileAction extends BaseAction {
     
  // 如果下载文件名为中文，进行字符编码转换  
     public String getDwChineseFileName() {  
+    	String name = getDwChineseName();
+    	String dwChineseFileName = name.substring(name.lastIndexOf("\\")+1);
+    	try {
+			dwChineseFileName = new String(dwChineseFileName.getBytes("utf-8"),"iso8859-1");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return dwChineseFileName;  
+    } 
+    public String getDwChineseName() {  
         String dwChineseFileName = dwFileName;
-
         try {
-			dwChineseFileName = java.net.URLDecoder.decode(dwFileName,"UTF-8");
+			dwChineseFileName = java.net.URLDecoder.decode(dwFileName,"utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-
         return dwChineseFileName;  
-    } 
+    }
     
     public void uploadHtmxFile(){
 

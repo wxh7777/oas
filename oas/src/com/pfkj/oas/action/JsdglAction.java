@@ -621,4 +621,22 @@ public class JsdglAction extends BaseAction {
 			e.printStackTrace();
 		} 
 	}
+	
+	public void getSkdFkdList(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String result = "";
+		String xmdm = request.getParameter("xmdm");
+		result = service.searchSkdFkdListForZjrb(xmdm);
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.reset();
+		response.setContentType("text/html;charset=utf-8");
+		try {
+			PrintWriter pw = response.getWriter();
+			pw.print(result);
+			pw.flush();
+			pw.close(); 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
 }

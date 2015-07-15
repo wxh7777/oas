@@ -14,6 +14,7 @@ import com.pfkj.oas.model.ZjrbVo;
 import com.pfkj.oas.model.dm.DmZjrbXm;
 import com.pfkj.oas.model.dm.DmZyVo;
 import com.pfkj.oas.model.qx.QxUser;
+import com.pfkj.oas.recover.model.ReceivableNoticeCard;
 
 public interface JsdDao {
 
@@ -74,4 +75,8 @@ public interface JsdDao {
 	void delete(Object xm);
 
 	List<ZjrbMxVo> getZjrbXmList(String id);
+
+	List<ReceivableNoticeCard> getSktzdList(String xmdm);
+
+	List<ShouQuanDo> getFktzdList(String xmdm);
 }

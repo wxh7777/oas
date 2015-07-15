@@ -12,7 +12,7 @@ function init(abtype){
 	                { "data": "SCWJSJ" },
 	                { "data": "HTWJLB" },
 	                { "data": abtype=="A"?"GCBSHYJWD":"SWBSHYJWD"},
-	                { "data": null }
+	                { "data": abtype=="A"?"GCBSHYJWD":"SWBSHYJWD"}
 	                
 	            ],
 	    oLanguage: {
@@ -33,20 +33,33 @@ function init(abtype){
 	                 {
 			            "render": function(data, type, row) {
 	                		var tmp = data;
-	                		if(tmp==null||tmp=""){
-	                			//tmp = uploadForm;
-	                			//row[4] = btnUpload;
+	                		if(tmp==null||tmp==""){
+	                			tmp = uploadForm;
+	                		}else{
+	                			tmp="<a name='file' class='btn-link' href='javascript:;'>"+ tmp +"</a>";
 	                		}
 		                    return tmp;
 			            },
-			            "targets": 3
+			            "aTargets": [3]
+			        },
+	                 {
+			            "render": function(data, type, row) {
+	                		var tmp = data;
+	                		if(tmp==null||tmp==""){
+	                			tmp = btnUpload;
+	                		}
+	                		else{
+	                			tmp="";
+	                		}
+		                    return tmp;
+			            },
+			            "aTargets": [4]
 			        }]
 	});
 
 	$("a[name=file]").on("click","",function(){
 		var hthbbh=this.parentNode.parentNode.children[0].innerHTML;
         var filename = "\\"+hthbbh+"\\"+this.textContent;
-		
 		download(filename);
 	});
 	

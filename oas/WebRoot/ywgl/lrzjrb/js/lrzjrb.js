@@ -9,6 +9,8 @@ function init(){
 	for(var i=0;i < json.length;i ++){
 		$("#xmdm").append("<option value='"+$(json[i]).attr('ID')+"'>"+$(json[i]).attr('NAME')+"</option>"); //为Select追加一个Option(下拉项) 
     }
+	//var listData = getMsg("","jsdgl-getSkdFkdList.action");
+    //dataArray = eval(listData)[0].data;
     
     var str = getMsg("","jsdgl-initZjrbTable.action");
     zjrbXmList = eval(eval(str)[0].TABLE)[0];
@@ -387,13 +389,4 @@ function excuteTable(obj,newValue){
             });
             $(tr).find("td[name='HJL']").html(sum);
         });
-}
-
-function getFkdList(){
-	var str = getMsg("","jsdgl-getFkdList.action");
-    
-}
-
-function getSkdList(){
-	
 }

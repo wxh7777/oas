@@ -69,7 +69,7 @@
 		<action name="file-*" class="fileAction" method="{1}">
             <param name="savePath">/files</param>
             <result name="success" type="stream">
-				<param name="contentType">application/octet-stream</param>
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
 				<param name="inputName">DownloadFile</param>
 				<param name="contentDisposition">attachment;filename="${dwChineseFileName}"</param>
 				<param name="bufferSize">4096</param>
