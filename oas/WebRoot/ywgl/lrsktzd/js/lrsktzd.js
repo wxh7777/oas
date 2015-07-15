@@ -51,7 +51,7 @@ function addReceivalbeNoticeCard(){
 
 //查看
 function viewReceivalbeNoticeCard(id){
-	layerShow("800","","查看收款通知单","lrsktzd-view.jsp?type=view");
+	layerShow("800","","查看收款通知单","recoverfund-getReceivalbeNoticeCardById.action?id="+id);
 }
 
 //提交收款通知单

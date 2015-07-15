@@ -1,4 +1,10 @@
+<%@page import="com.pfkj.oas.recover.model.ReceivableNoticeCard"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
+
+<%
+	ReceivableNoticeCard receivableNoticeCard = (ReceivableNoticeCard)request.getAttribute("receivableNoticeCard");
+%>
+
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8">
@@ -14,18 +20,24 @@
 	<form id="receivalbeNoticeCardForm" action="" method="post">
 		<div class="text-c">
 			<table class="table table-border table-bordered table-striped">
+			<colgroup>
+				<col width="10%">
+				<col width="2%">
+				<col width="10%">
+				<col width="10%">
+				<col width="2%">
+				<col width="10%">
+				<col width="10%">
+			</colgroup>
 	          <tbody>
 	          	<tr>
 	          		<td colspan="2"><div class="text-r">项目名称</div></td>
 	            	<td colspan="3">
-						<select class="select select-box" name="receivableNoticeCard.xiangmuId">
-							<option value="11111139763039816337">项目一</option>
-							<option value="11111118892061438478">项目二</option>
-						</select>
+						<%=receivableNoticeCard.getXiangmuId() %>					
 					</td>
 					<td><div class="text-r">合同金额</div></td>
 	            	<td>
-						<input type="text" class="input-text" name="receivableNoticeCard.contractMoney" placeholder="合同金额">
+	            		<%=receivableNoticeCard.getContractMoney() %>
 					 </td>
 	          	</tr>
 	          	<tr>
@@ -34,115 +46,115 @@
 	          			<div class="text-r">计量期数</div>
 	          		</td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.meteringNum" placeholder="计量期数">
+	          			<%=receivableNoticeCard.getMeteringNum() %>
 	          		</td>
 	          		<td colspan="2"><div class="text-r">累计收款</div></td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.totalReceivables" placeholder="累计收款">
+	          			<%=receivableNoticeCard.getTotalReceivables() %>
 	          		</td>
 	          	</tr>
 	          	<tr>
 	          		<td><div class="text-r">应收计量款</div></td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.mustMeteringMoney" placeholder="应收计量款">
+	          			<%=receivableNoticeCard.getMustMeteringMoney() %>
 	          		</td>
 	          		<td colspan="2"><div class="text-r">累计开票</div></td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.totalBilling" placeholder="累计开票">
+	          			<%=receivableNoticeCard.getTotalBilling() %>
 	          		</td>
 	          	</tr>
 	          	<tr>
 	          		<td><div class="text-r">其他</div></td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.mustOtherMoney" placeholder="其他">
+	          			<%=receivableNoticeCard.getMustOtherMoney() %>
 	          		</td>
 	          		<td colspan="2"><div class="text-r">应收款合计</div></td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.mustTotalMoney" placeholder="应收款合计">
+	          			<%=receivableNoticeCard.getMustTotalMoney() %>
 	          		</td>
 	          	</tr>
 	          	<tr>
 	          		<td rowspan="7"><div class="text-r">本次收款情况</div></td>
 	          		<td colspan="2"><div class="text-r">本次收计量款合计</div></td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.totalMeteringMoney" placeholder="本次收计量款合计">
+	          			<%=receivableNoticeCard.getTotalMeteringMoney() %>
 	          		</td>
 	          		
 	          		<td colspan="2"><div class="text-r">应收工程款合计</div></td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.mustTotalProjectMoney" placeholder="应收工程款合计">
+	          			<%=receivableNoticeCard.getMustTotalProjectMoney() %>
 	          		</td>
 	          	</tr>
 	          	<tr>
           			<td rowspan="6"><div class="text-r">其中</div></td>
           			<td><div class="text-r">开工预付款</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.advanceMoney" placeholder="开工预付款">
+          				<%=receivableNoticeCard.getAdvanceMoney() %>
           			</td>
           			<td rowspan="5"><div class="text-r" style="">应<br>收<br>账<br>款<br>、<br>其<br>他<br>应<br>收<br>款</div></td>
           			<td><div class="text-r">计量款</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.meteringMoney" placeholder="计量款">
+          				<%=receivableNoticeCard.getMeteringMoney() %>
           			</td>
           		</tr>
 	          	<tr>
           			<td><div class="text-r">计量款</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.projectMeteringMoney" placeholder="计量款">
+          				<%=receivableNoticeCard.getProjectMeteringMoney() %>
           			</td>
           			
           			<td><div class="text-r">保留金10%</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.holdMoney" placeholder="保留金10%">
+          				<%=receivableNoticeCard.getHoldMoney() %>
           			</td>
           		</tr>
 	          	<tr>	
           			<td><div class="text-r">保留金10%</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.projectHoldMoney" placeholder="保留金10%">
+          				<%=receivableNoticeCard.getProjectHoldMoney() %>
           			</td>
           			
           			<td><div class="text-r">质保金5%</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.warrantyMoney" placeholder="质保金5%">
+          				<%=receivableNoticeCard.getWarrantyMoney() %>
           			</td>
           		</tr>
 	          	<tr>	
           			<td><div class="text-r">质保金5%</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.projectWarrantyMoney" placeholder="质保金5%">
+          				<%=receivableNoticeCard.getProjectWarrantyMoney() %>
           			</td>
           			
           			<td><div class="text-r">农民工保证金</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.farmerMoney" placeholder="农民工保证金">
+          				<%=receivableNoticeCard.getFarmerMoney() %>
           			</td>
           		</tr>
 	          	<tr>	
           			<td><div class="text-r">农民工保证金</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.projectFarmerMoney" placeholder="农民工保证金">
+          				<%=receivableNoticeCard.getProjectFarmerMoney() %>
           			</td>
           			
           			<td><div class="text-r">其他</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.otherMoney" placeholder="其他">
+          				<%=receivableNoticeCard.getOtherMoney() %>
           			</td>
           		</tr>
           		<tr>
           			<td><div class="text-r">其他</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.projectOtherMoney" placeholder="其他">
+          				<%=receivableNoticeCard.getProjectOtherMoney() %>
           			</td>
           			<td colspan="2"><div class="text-r">已收工预付款</div></td>
           			<td>
-          				<input type="text" class="input-text" name="receivableNoticeCard.projectAdvanceMoney" placeholder="已收工预付款">
+          				<%=receivableNoticeCard.getProjectAdvanceMoney() %>
           			</td>
           		</tr>	
 	          	<tr>
 	          		<td colspan="2"><div class="text-r">备注</div></td>
 	            	<td colspan="5">
-	              		<input type="text" class="input-text"  name="receivableNoticeCard.memo"  placeholder="备注">
+	            		<%=receivableNoticeCard.getMemo() %>
 	              	</td>
 	          	</tr>
 	          </tbody>
