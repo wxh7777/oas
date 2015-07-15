@@ -10,5 +10,7 @@ public interface ReceivableNoticeCardService {
 	public boolean insert(ReceivableNoticeCard receivableNoticeCard);
 
 	public List<Map> searchReceivalNoticeCardList();
+
+	public ReceivableNoticeCard searchReceivalNoticeCardById(String id);
 	
 }

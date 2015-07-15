@@ -50,6 +50,7 @@
 		<action name="recoverfund-*" class="recoverFundAction" method="{1}">
 			<result name="success">/help.jsp</result>
 			<result name="fail">/error.jsp</result>
+			<result name="viewReceivalbeNoticeCard">/ywgl/lrsktzd/lrsktzd-view.jsp</result>
 		</action>
 	</package>
 	

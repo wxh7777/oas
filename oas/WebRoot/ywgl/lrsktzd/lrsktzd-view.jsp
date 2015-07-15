@@ -3,6 +3,7 @@
 
 <%
 	ReceivableNoticeCard receivableNoticeCard = (ReceivableNoticeCard)request.getAttribute("receivableNoticeCard");
+	String xiangMuName = (String)request.getAttribute("xiangMuName");
 %>
 
 <!DOCTYPE html>
@@ -33,7 +34,7 @@
 	          	<tr>
 	          		<td colspan="2"><div class="text-r">项目名称</div></td>
 	            	<td colspan="3">
-						<%=receivableNoticeCard.getXiangmuId() %>					
+						<%=xiangMuName %>					
 					</td>
 					<td><div class="text-r">合同金额</div></td>
 	            	<td>

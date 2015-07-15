@@ -72,5 +72,19 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 		}
 		return receivalNoticeCardList;
 	}
-
+	
+	@Transactional("transactionManager")
+	@Override
+	public ReceivableNoticeCard searchReceivalNoticeCardById(String id) {
+		StringBuffer hql = new StringBuffer();
+		hql.append("from ReceivableNoticeCard where id='"+id+"'");
+		Query query = sessionFactory.getCurrentSession().createQuery(hql.toString());
+		List<ReceivableNoticeCard> queryList = query.list();
+		if(queryList.size()>0){
+			ReceivableNoticeCard receivableNoticeCard = queryList.get(0);
+			return receivableNoticeCard;
+		}else{
+			return null;
+		}
+	}
 }

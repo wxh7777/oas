@@ -11,4 +11,6 @@ public interface ReceivableNoticeCardDao {
 	
 	List<Map> searchReceivalNoticeCardList();
 
+	ReceivableNoticeCard searchReceivalNoticeCardById(String id);
+
 }

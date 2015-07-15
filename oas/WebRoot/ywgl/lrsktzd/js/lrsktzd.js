@@ -40,7 +40,8 @@ function initReceivalbeNoticeCardListTable(){
 	
 	$('#receivalbeNoticeCardListTable tbody').on('click', 'tr', function () {
         var id = $('td', this).eq(0).text();
-        viewReceivalbeNoticeCard(id);
+        var xiangMuName = $('td', this).eq(1).text();
+        viewReceivalbeNoticeCard(id,xiangMuName);
     } );
 }
 
@@ -50,8 +51,8 @@ function addReceivalbeNoticeCard(){
 }
 
 //查看
-function viewReceivalbeNoticeCard(id){
-	layerShow("800","","查看收款通知单","recoverfund-getReceivalbeNoticeCardById.action?id="+id);
+function viewReceivalbeNoticeCard(id,xiangMuName){
+	layerShow("800","","查看收款通知单","recoverfund-getReceivalbeNoticeCardById.action?id="+id+"&xiangMuName="+xiangMuName);
 }
 
 //提交收款通知单

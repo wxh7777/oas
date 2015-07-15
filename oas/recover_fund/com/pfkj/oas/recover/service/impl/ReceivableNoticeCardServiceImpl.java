@@ -34,4 +34,9 @@ public class ReceivableNoticeCardServiceImpl implements
 		return receivableNoticeCardDao.searchReceivalNoticeCardList();
 	}
 
+	@Override
+	public ReceivableNoticeCard searchReceivalNoticeCardById(String id) {
+		return receivableNoticeCardDao.searchReceivalNoticeCardById(id);
+	}
+
 }

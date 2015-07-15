@@ -1,5 +1,7 @@
 package com.pfkj.oas.recover.action;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -110,4 +112,24 @@ public class RecoverFundAction extends BaseAction {
 		jsonObject.put("data", JSONArray.fromObject(receivableNoticeCardList).toString());
 		JsonUtil.output(response, jsonObject.toString());
 	}
+	
+	/**
+	 * 根据Id获取收款通知单
+	 * @param id
+	 */
+	public String getReceivalbeNoticeCardById(){
+		String id = request.getParameter("id");
+		String xiangMuName = "";
+		try {
+			xiangMuName = new String(request.getParameter("xiangMuName").getBytes("ISO8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		ReceivableNoticeCard receivableNoticeCard = new ReceivableNoticeCard();
+		receivableNoticeCard = receivableNoticeCardService.searchReceivalNoticeCardById(id);
+		request.setAttribute("receivableNoticeCard", receivableNoticeCard);
+		request.setAttribute("xiangMuName", xiangMuName);
+		return "viewReceivalbeNoticeCard";
+	}
+	
 }
