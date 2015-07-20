@@ -31,10 +31,10 @@
 	          	<tr>
 	          		<td colspan="2" rowspan="3"><div class="text-r">计量及收款</div></td>
 	          		<td>
-	          			<div class="text-r">计量期数</div>
+	          			<div class="text-r">累计计量</div>
 	          		</td>
 	          		<td>
-	          			<input type="text" class="input-text" name="receivableNoticeCard.meteringNum" placeholder="计量期数">
+	          			<input type="text" class="input-text" name="receivableNoticeCard.totalMetering" placeholder="累计计量">
 	          		</td>
 	          		<td colspan="2"><div class="text-r">累计收款</div></td>
 	          		<td>

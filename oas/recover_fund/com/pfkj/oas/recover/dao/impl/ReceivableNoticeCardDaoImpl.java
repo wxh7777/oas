@@ -45,7 +45,7 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 		List receivalNoticeCardList = new ArrayList();
 		
 		StringBuffer sqlBuffer = new StringBuffer();
-		sqlBuffer.append("select rnc.ID,rnc.METERING_NUM,rnc.ADVANCE_MONEY,rnc.METERING_MONEY,rnc.HOLD_MONEY,rnc.WARRANTY_MONEY,rnc.FARMER_Money,rnc.OTHER_MONEY,rnc.MEMO");
+		sqlBuffer.append("select rnc.ID,rnc.TOTAL_METERING,rnc.ADVANCE_MONEY,rnc.METERING_MONEY,rnc.HOLD_MONEY,rnc.WARRANTY_MONEY,rnc.FARMER_Money,rnc.OTHER_MONEY,rnc.MEMO");
 		sqlBuffer.append(",xm.XM_DESC,xm.XM_MC from glxt_receivable_notice_card rnc,glxt_xiangmu xm");
 		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID");
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlBuffer.toString());
@@ -57,7 +57,7 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 				Object obj[] = (Object[]) iter.next();
 				Map itemMap = new HashMap();
 				itemMap.put("ID", obj[0]);
-				itemMap.put("METERING_NUM", obj[1]);
+				itemMap.put("TOTAL_METERING", obj[1]);
 				itemMap.put("ADVANCE_MONEY", obj[2]);
 				itemMap.put("METERING_MONEY", obj[3]);
 				itemMap.put("HOLD_MONEY", obj[4]);

@@ -36,10 +36,10 @@ public class ReceivableNoticeCard {
 	@Column(name = "CONTRACT_MONEY")
 	private double contractMoney;
 
-	//计量期数
-	@Column(name = "METERING_NUM")
-	private int meteringNum;
-	
+	//累计计量
+	@Column(name = "TOTAL_METERING")
+	private double totalMetering;
+
 	//累计收款
 	@Column(name = "TOTAL_RECEIVABLES")
 	private double totalReceivables;
@@ -156,14 +156,14 @@ public class ReceivableNoticeCard {
 		this.contractMoney = contractMoney;
 	}
 
-	public int getMeteringNum() {
-		return meteringNum;
+	public double getTotalMetering() {
+		return totalMetering;
 	}
 
-	public void setMeteringNum(int meteringNum) {
-		this.meteringNum = meteringNum;
+	public void setTotalMetering(double totalMetering) {
+		this.totalMetering = totalMetering;
 	}
-
+	
 	public double getTotalReceivables() {
 		return totalReceivables;
 	}
@@ -351,8 +351,8 @@ public class ReceivableNoticeCard {
 	@Override
 	public String toString() {
 		return "ReceivableNoticeCard [id=" + id + ", xiangmuId=" + xiangmuId
-				+ ", contractMoney=" + contractMoney + ", meteringNum="
-				+ meteringNum + ", totalReceivables=" + totalReceivables
+				+ ", contractMoney=" + contractMoney + ", totalMetering="
+				+ totalMetering + ", totalReceivables=" + totalReceivables
 				+ ", mustMeteringMoney=" + mustMeteringMoney
 				+ ", totalBilling=" + totalBilling + ", mustOtherMoney="
 				+ mustOtherMoney + ", mustTotalMoney=" + mustTotalMoney

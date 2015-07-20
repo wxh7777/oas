@@ -14,7 +14,7 @@ function initReceivalbeNoticeCardListTable(){
 	    columns:[
 	                { data: "ID" },
 	                { data: "XM_MC" },
-	                { data: "METERING_NUM" },
+	                { data: "TOTAL_METERING" },
 	                { data: "ADVANCE_MONEY" },
 	                { data: "METERING_MONEY" },
 	                { data: "HOLD_MONEY" },

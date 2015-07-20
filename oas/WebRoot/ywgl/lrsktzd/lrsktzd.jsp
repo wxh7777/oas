@@ -34,7 +34,7 @@
 				<tr>
 			        <th width="100">ID</th>
 			        <th width="100">项目名称</th>
-			        <th width="80">计量期数</th>
+			        <th width="80">累计计量</th>
 			        <th width="80">开工预付款</th>
 			        <th width="80">计量款</th>
 			        <th width="80">保留金10%</th>
