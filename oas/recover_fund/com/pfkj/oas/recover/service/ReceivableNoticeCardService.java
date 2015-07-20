@@ -12,5 +12,7 @@ public interface ReceivableNoticeCardService {
 	public List<Map> searchReceivalNoticeCardList();
 
 	public ReceivableNoticeCard searchReceivalNoticeCardById(String id);
+
+	public List<Map> searchReceivalNoticeCardTotalList(String xianMuIds);
 	
 }

@@ -132,4 +132,17 @@ public class RecoverFundAction extends BaseAction {
 		return "viewReceivalbeNoticeCard";
 	}
 	
+	/**
+	 * 获取项目汇总列表
+	 * @return
+	 */
+	public void getReceivalNoticeCardTotalList(){
+		String xianMuIds = request.getParameter("xiangMuIds");
+		List<Map> receivableNoticeCardTotalList = new ArrayList<Map>();
+		receivableNoticeCardTotalList = receivableNoticeCardService.searchReceivalNoticeCardTotalList(xianMuIds);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("data", JSONArray.fromObject(receivableNoticeCardTotalList).toString());
+		JsonUtil.output(response, jsonObject.toString());
+		
+	}
 }

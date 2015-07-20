@@ -39,4 +39,9 @@ public class ReceivableNoticeCardServiceImpl implements
 		return receivableNoticeCardDao.searchReceivalNoticeCardById(id);
 	}
 
+	@Override
+	public List<Map> searchReceivalNoticeCardTotalList(String xianMuIds) {
+		return receivableNoticeCardDao.searchReceivalNoticeCardTotalList(xianMuIds);
+	}
+
 }

@@ -87,4 +87,46 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 			return null;
 		}
 	}
+	
+	@Transactional("transactionManager")
+	@Override
+	public List<Map> searchReceivalNoticeCardTotalList(String xiangMuIds) {
+		List receivalNoticeCardTotalList = new ArrayList();
+		StringBuffer innerSql = new StringBuffer();
+		String []xiangMuIdsArr = xiangMuIds.split(",");
+		for(int i=0;i<xiangMuIdsArr.length;i++){
+			if(innerSql.length()>0){
+				innerSql.append(",");
+			}
+			innerSql.append("'"+xiangMuIdsArr[i]+"'");
+		}
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("select rnc.ID,rnc.TOTAL_METERING,rnc.ADVANCE_MONEY,rnc.METERING_MONEY,rnc.HOLD_MONEY,rnc.WARRANTY_MONEY,rnc.FARMER_Money,rnc.OTHER_MONEY,rnc.MEMO");
+		sqlBuffer.append(",xm.XM_DESC,xm.XM_MC from glxt_receivable_notice_card rnc,glxt_xiangmu xm");
+		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID and rnc.XIANGID in ("+innerSql.toString()+")");
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlBuffer.toString());
+
+		List queryList = query.list();
+		if(queryList != null && !queryList.isEmpty()){
+			Iterator iter = queryList.iterator();
+			while (iter.hasNext()) {
+				Object obj[] = (Object[]) iter.next();
+				Map itemMap = new HashMap();
+				itemMap.put("ID", obj[0]);
+				itemMap.put("TOTAL_METERING", obj[1]);
+				itemMap.put("ADVANCE_MONEY", obj[2]);
+				itemMap.put("METERING_MONEY", obj[3]);
+				itemMap.put("HOLD_MONEY", obj[4]);
+				itemMap.put("WARRANTY_MONEY", obj[5]);
+				itemMap.put("FARMER_MONEY", obj[6]);
+				itemMap.put("OTHER_MONEY", obj[7]);
+				itemMap.put("MEMO", obj[8]);
+				itemMap.put("XM_DESC", obj[9]);
+				itemMap.put("XM_MC", obj[10]);
+				
+				receivalNoticeCardTotalList.add(itemMap);
+			}
+		}
+		return receivalNoticeCardTotalList;
+	}
 }
