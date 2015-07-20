@@ -22,7 +22,7 @@
 		<div class="text-c">
 			<table class="table table-border table-bordered table-striped">
 			<colgroup>
-				<col width="10%">
+				<col width="7%">
 				<col width="2%">
 				<col width="10%">
 				<col width="10%">
