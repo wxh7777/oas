@@ -15,10 +15,12 @@
 	  	<table id="receivalbeNoticeCardTotalTable" class="table table-striped table-bordered table-condensed" cellspacing="0" width="100%">
 			<thead class="text-c">
 				<tr>
-			        <th width="100">ID</th>
-			        <th width="100">项目名称</th>
-			        <th width="80">期初应收款</th>
-			        <th width="80">本期应收款</th>
+			        <th rowspan="2" width="100">项目名称</th>
+			        <th rowspan="2" width="80">期初应收款</th>
+			        <th colspan="7" width="80">本次收款情况</th>
+			        <th rowspan="2" width="80">期末应收款</th>
+				</tr>
+				<tr>
 			        <th width="80">开工预付款</th>
 			        <th width="80">计量款</th>
 			        <th width="80">保留金</th>
@@ -26,7 +28,6 @@
 			        <th width="80">农民工保证金</th>
 			        <th width="80">其他</th>
 			        <th width="80">合计</th>
-			        <th width="80">期末应收款</th>
 				</tr>
 			</thead>
 	    	<tbody class="text-c">

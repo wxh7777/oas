@@ -101,9 +101,9 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 			innerSql.append("'"+xiangMuIdsArr[i]+"'");
 		}
 		StringBuffer sqlBuffer = new StringBuffer();
-		sqlBuffer.append("select rnc.ID,rnc.TOTAL_METERING,rnc.ADVANCE_MONEY,rnc.METERING_MONEY,rnc.HOLD_MONEY,rnc.WARRANTY_MONEY,rnc.FARMER_Money,rnc.OTHER_MONEY,rnc.MEMO");
+		sqlBuffer.append("select rnc.ID,rnc.MUST_TOTAL_MONEY,rnc.ADVANCE_MONEY,rnc.METERING_MONEY,rnc.HOLD_MONEY,rnc.WARRANTY_MONEY,rnc.FARMER_Money,rnc.OTHER_MONEY");
 		sqlBuffer.append(",xm.XM_DESC,xm.XM_MC from glxt_receivable_notice_card rnc,glxt_xiangmu xm");
-		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID and rnc.XIANGID in ("+innerSql.toString()+")");
+		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID and rnc.XIANGMU_ID in ("+innerSql.toString()+")");
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlBuffer.toString());
 
 		List queryList = query.list();
@@ -113,17 +113,27 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 				Object obj[] = (Object[]) iter.next();
 				Map itemMap = new HashMap();
 				itemMap.put("ID", obj[0]);
-				itemMap.put("TOTAL_METERING", obj[1]);
+				itemMap.put("MUST_TOTAL_MONEY", obj[1]);
 				itemMap.put("ADVANCE_MONEY", obj[2]);
 				itemMap.put("METERING_MONEY", obj[3]);
 				itemMap.put("HOLD_MONEY", obj[4]);
 				itemMap.put("WARRANTY_MONEY", obj[5]);
 				itemMap.put("FARMER_MONEY", obj[6]);
 				itemMap.put("OTHER_MONEY", obj[7]);
-				itemMap.put("MEMO", obj[8]);
-				itemMap.put("XM_DESC", obj[9]);
-				itemMap.put("XM_MC", obj[10]);
+				itemMap.put("XM_DESC", obj[8]);
+				itemMap.put("XM_MC", obj[9]);
+				double total = 0.0;
+				total = Double.parseDouble(obj[2].toString())
+						+Double.parseDouble(obj[3].toString())
+						+Double.parseDouble(obj[4].toString())
+						+Double.parseDouble(obj[5].toString())
+						+Double.parseDouble(obj[6].toString())
+						+Double.parseDouble(obj[7].toString());
+				itemMap.put("TOTAL",total);
 				
+				double last = 0.0;
+				last = Double.parseDouble(obj[1].toString())-total;
+				itemMap.put("LAST", last);
 				receivalNoticeCardTotalList.add(itemMap);
 			}
 		}

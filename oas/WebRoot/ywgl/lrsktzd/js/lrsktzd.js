@@ -94,16 +94,16 @@ function initReceivalbeNoticeCardTotalTable(){
 		ajax:"recoverfund-getReceivalNoticeCardTotalList.action",
 	    bSort:false,
 	    columns:[
-	                { data: "ID" },
 	                { data: "XM_MC" },
-	                { data: "METERING_NUM" },
+	                { data: "MUST_TOTAL_MONEY" },
 	                { data: "ADVANCE_MONEY" },
 	                { data: "METERING_MONEY" },
 	                { data: "HOLD_MONEY" },
 	                { data: "WARRANTY_MONEY" },
 	                { data: "FARMER_MONEY" },
 	                { data: "OTHER_MONEY" },
-	                { data: "MEMO" }
+	                { data: "TOTAL" },
+	                { data: "LAST" }
 	    ],
 	    oLanguage: {
 	            	"sLengthMenu": "每页显示 _MENU_ 条记录",
