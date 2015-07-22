@@ -6,17 +6,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.activiti.engine.identity.User;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pfkj.oas.manager.QxManager;
-import com.pfkj.oas.model.qx.QxUser;
 import com.pfkj.oas.recover.dao.IncomeContractDao;
 import com.pfkj.oas.recover.model.IncomeContract;
-import com.pfkj.oas.service.QxService;
 
 public class IncomeContractDaoImpl implements IncomeContractDao {
 	
@@ -127,6 +124,7 @@ public class IncomeContractDaoImpl implements IncomeContractDao {
 		sqlBuffer.append("select ic.ID,ic.TYPE,ic.NUMBER,ic.PATH,xm.XM_DESC,xm.XM_MC");
 		sqlBuffer.append(" from glxt_income_contract ic,glxt_xiangmu xm,glxt_user_xm uxm,glxt_qx_user u"); 
 		sqlBuffer.append(" where u.ID= uxm.USER_ID and ic.XIANGMU_ID =uxm.XM_ID and uxm.XM_ID = xm.ID and u.USER_ACCOUNT = '"+userName+"'");
+		sqlBuffer.append(" order by ic.UPLOAD_TIME desc");
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlBuffer.toString());
 		List<Map> queryList = query.list();
 		if(queryList!=null && !queryList.isEmpty()){

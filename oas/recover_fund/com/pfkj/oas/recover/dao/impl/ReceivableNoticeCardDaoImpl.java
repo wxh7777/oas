@@ -49,7 +49,7 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("select rnc.ID,rnc.TOTAL_METERING,rnc.ADVANCE_MONEY,rnc.METERING_MONEY,rnc.HOLD_MONEY,rnc.WARRANTY_MONEY,rnc.FARMER_Money,rnc.OTHER_MONEY,rnc.MEMO,rnc.CREATE_TIME");
 		sqlBuffer.append(",xm.XM_DESC,xm.XM_MC from glxt_receivable_notice_card rnc,glxt_xiangmu xm");
-		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID");
+		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID order by rnc.CREATE_TIME desc");
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlBuffer.toString());
 
 		List queryList = query.list();
@@ -106,7 +106,7 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("select rnc.ID,rnc.MUST_TOTAL_MONEY,rnc.ADVANCE_MONEY,rnc.METERING_MONEY,rnc.HOLD_MONEY,rnc.WARRANTY_MONEY,rnc.FARMER_Money,rnc.OTHER_MONEY,rnc.CREATE_TIME");
 		sqlBuffer.append(",xm.XM_DESC,xm.XM_MC from glxt_receivable_notice_card rnc,glxt_xiangmu xm");
-		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID and rnc.XIANGMU_ID in ("+innerSql.toString()+")");
+		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID and rnc.XIANGMU_ID in ("+innerSql.toString()+") order by rnc.CREATE_TIME desc");
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlBuffer.toString());
 
 		List queryList = query.list();
@@ -152,7 +152,7 @@ public class ReceivableNoticeCardDaoImpl implements ReceivableNoticeCardDao {
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("select rnc.ID,rnc.MUST_TOTAL_MONEY,rnc.ADVANCE_MONEY,rnc.METERING_MONEY,rnc.HOLD_MONEY,rnc.WARRANTY_MONEY,rnc.FARMER_Money,rnc.OTHER_MONEY,rnc.CREATE_TIME");
 		sqlBuffer.append(",xm.XM_DESC,xm.XM_MC from glxt_receivable_notice_card rnc,glxt_xiangmu xm");
-		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID ");
+		sqlBuffer.append(" where xm.ID = rnc.XIANGMU_ID order by rnc.CREATE_TIME desc");
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlBuffer.toString());
 
 		List queryList = query.list();

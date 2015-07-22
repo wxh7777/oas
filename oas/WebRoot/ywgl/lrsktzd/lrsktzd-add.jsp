@@ -142,7 +142,7 @@
 	          	<tr>
 	          		<td colspan="2"><div class="text-r">备注</div></td>
 	            	<td colspan="5">
-	              		<input type="text" class="input-text"  name="receivableNoticeCard.memo"  placeholder="备注">
+	              		<input type="text" class="input-text"  name="receivableNoticeCard.memo" placeholder="备注">
 	              	</td>
 	          	</tr>
 	          </tbody>

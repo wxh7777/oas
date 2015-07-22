@@ -63,7 +63,8 @@ function doReceivableNoticeCardSubmit(){
 	        success: function(data){ 
 	        	if(data>0){
 	        		layer.msg("保存成功");
-		        	$( "#receivalbeNoticeCardForm").resetForm(); 
+	        		//延迟1s执行
+	        		setTimeout(layerClose,1000);
 	        	}else{
 	        		layer.msg("保存失败，请重新提交");
 	        	}
