@@ -14,13 +14,13 @@ function initReceivalbeNoticeCardListTable(){
 	    columns:[
 	                { data: "ID" },
 	                { data: "XM_MC" },
-	                { data: "TOTAL_METERING" },
 	                { data: "ADVANCE_MONEY" },
 	                { data: "METERING_MONEY" },
 	                { data: "HOLD_MONEY" },
 	                { data: "WARRANTY_MONEY" },
 	                { data: "FARMER_MONEY" },
 	                { data: "OTHER_MONEY" },
+	                { data: "CREATE_TIME" },
 	                { data: "MEMO" }
 	    ],
 	    oLanguage: {

@@ -25,7 +25,10 @@
      		<a class="btn btn-primary radius" href="javascript:;" onclick="addReceivalbeNoticeCard()"><i class="icon-plus"></i> 添加收款通知单</a>
      		<%
  			%>
+ 			<!-- 注释掉换地方显示  -->
+ 			<!--  
  			<a class="btn btn-primary radius" href="javascript:;" onclick="openReceivalbeNoticeCardTotal()"><i class="icon-view"></i> 汇总收款通知单</a>
+ 			-->
    		</span>
  	</div>
  	<div  class="container">
@@ -34,13 +37,13 @@
 				<tr>
 			        <th width="100">ID</th>
 			        <th width="100">项目名称</th>
-			        <th width="80">累计计量</th>
 			        <th width="80">开工预付款</th>
 			        <th width="80">计量款</th>
 			        <th width="80">保留金10%</th>
 			        <th width="80">质保金5%</th>
 			        <th width="80">农民工保证金</th>
 			        <th width="80">其他</th>
+			        <th width="80">时间</th>
 			        <th>备注</th>
 				</tr>
 			</thead>

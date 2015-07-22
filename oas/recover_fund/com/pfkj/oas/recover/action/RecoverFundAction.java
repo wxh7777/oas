@@ -137,10 +137,8 @@ public class RecoverFundAction extends BaseAction {
 	 * @return
 	 */
 	public void getReceivalNoticeCardTotalList(){
-		String xianMuIds = request.getParameter("xiangMuIds");
-		xianMuIds = "11111139763039816337,11111118892061438478";
 		List<Map> receivableNoticeCardTotalList = new ArrayList<Map>();
-		receivableNoticeCardTotalList = receivableNoticeCardService.searchReceivalNoticeCardTotalList(xianMuIds);
+		receivableNoticeCardTotalList = receivableNoticeCardService.searchReceivalNoticeCardTotalList();
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("data", JSONArray.fromObject(receivableNoticeCardTotalList).toString());
 		JsonUtil.output(response, jsonObject.toString());

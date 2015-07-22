@@ -14,5 +14,7 @@ public interface ReceivableNoticeCardDao {
 	ReceivableNoticeCard searchReceivalNoticeCardById(String id);
 
 	List<Map> searchReceivalNoticeCardTotalList(String xianMuIds);
+	
+	List<Map> searchReceivalNoticeCardTotalList();
 
 }
